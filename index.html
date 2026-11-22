@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>OSSIAN TOK Buy</title>
+  <link id="siteFaviconLink" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fde047'/%3E%3Cstop offset='55%25' stop-color='%23f59e0b'/%3E%3Cstop offset='100%25' stop-color='%23b45309'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='%230f172a'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='url(%23g)' stroke-width='6'/%3E%3Cpath d='M32 10 L36 22 L32 19 L28 22 Z' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #d97706;
+      --gold-grad: linear-gradient(135deg, #fde047 0%, #f59e0b 50%, #b45309 100%);
+      --gold-bg: rgba(245, 158, 11, 0.12);
+      --gold-border: rgba(245, 158, 11, 0.3);
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      --nav-bg: rgba(255, 255, 255, 0.94);
+    }
+    body.dark {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1f2937;
+      --primary: #f59e0b;
+      --gold-bg: rgba(245, 158, 11, 0.14);
+      --gold-border: rgba(245, 158, 11, 0.32);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.38);
+      --nav-bg: rgba(17, 24, 39, 0.94);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh;
+      display: flex; justify-content: center; transition: background-color 0.25s, color 0.25s;
+    }
+    .gold-icon {
+      color: #f59e0b; background: var(--gold-grad);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;
+    }
+    .app-shell {
+      width: 100%; max-width: 980px; min-height: 100vh;
+      background: var(--bg); display: flex; flex-direction: column; padding-bottom: 36px;
+    }
+    @media (min-width: 980px) {
+      .app-shell { border-left: 1px solid var(--border); border-right: 1px solid var(--border); box-shadow: var(--shadow); }
+    }
+
+    /* Sticky Top Header with Region + Country + Save on Right */
+    .top-header {
+      position: sticky; top: 0; z-index: 40;
+      background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 10px 14px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;
+    }
+    .brand-logo svg { width: 24px; height: 24px; }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand-sub { font-size: 11px; color: var(--text-muted); display: block; }
+
+    .header-right-controls {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-left: auto;
+    }
+    .region-select, .country-select {
+      padding: 7px 9px; border-radius: 10px; border: 1px solid var(--gold-border);
+      background: var(--surface-2); color: var(--text); font-size: 12px; font-weight: 700;
+      outline: none; max-width: 145px; cursor: pointer;
+    }
+    .region-select:disabled, .country-select:disabled { opacity: 0.65; cursor: not-allowed; }
+    .region-select { max-width: 124px; }
+    .save-region-btn {
+      padding: 7px 12px; border-radius: 10px; border: none;
+      background: var(--gold-grad); color: #0f172a; font-size: 12px; font-weight: 800;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .save-region-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .region-lock-chip {
+      font-size: 10.5px; font-weight: 800; padding: 4px 9px; border-radius: 99px;
+      background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
+      display: none; align-items: center; gap: 4px;
+    }
+    .region-lock-chip.show { display: inline-flex; }
+    .icon-btn {
+      background: var(--surface-2); border: 1px solid var(--border);
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;
+    }
+    .main-content { padding: 16px; flex: 1; }
+
+    /* Hero Banner */
+    .hero-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 65%, #334155 100%);
+      color: #ffffff; border-radius: 20px; padding: 18px; margin-bottom: 16px;
+      border: 1px solid rgba(245, 158, 11, 0.35); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+    }
+    .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .hero-card h1 { font-size: 20px; font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .hero-card p { font-size: 12.5px; opacity: 0.9; line-height: 1.45; }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.14); }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 99px;
+      background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(245, 158, 11, 0.4);
+      font-size: 12px; font-weight: 700; color: #f8fafc;
+    }
+
+    .notice-banner {
+      background: var(--gold-bg); border: 1.5px solid var(--gold-border); border-radius: 16px;
+      padding: 12px 14px; margin-bottom: 14px; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+
+    /* Section Tabs */
+    .top-tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      background: var(--surface); border: 1px solid var(--border); padding: 6px; border-radius: 16px;
+      margin-bottom: 16px; box-shadow: var(--shadow);
+    }
+    .tab-btn {
+      padding: 10px 8px; border: none; border-radius: 12px; background: transparent;
+      color: var(--text-muted); font-size: 13px; font-weight: 700; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .tab-btn.active { background: var(--gold-grad); color: #0f172a; }
+
+    .tab-section { display: none; }
+    .tab-section.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* 20 Token Buy Boxes Grid */
+    .packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (min-width: 680px) { .packages-grid { grid-template-columns: repeat(4, 1fr); } }
+    .pkg-card {
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: 18px;
+      padding: 14px 12px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: var(--shadow); cursor: pointer; transition: transform 0.15s, border-color 0.2s;
+    }
+    .pkg-card:hover { border-color: #f59e0b; transform: translateY(-2px); }
+    .pkg-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; }
+    .pkg-num {
+      font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 99px;
+      background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
+    }
+    .pkg-bonus-badge {
+      font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 99px;
+      background: rgba(16, 185, 129, 0.14); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .pkg-total-tok { font-size: 19px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
+    .pkg-breakdown { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+    .pkg-price-box {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 9px 10px; margin-bottom: 10px; text-align: center;
+    }
+    .pkg-local-price { font-size: 16px; font-weight: 900; color: var(--primary); }
+    .pkg-locked-price { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+
+    /* Cards & Lists */
+    .panel-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+      padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow);
+    }
+    .kv-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 640px) { .kv-grid { grid-template-columns: repeat(2, 1fr); } }
+    .kv-item {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .kv-label { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
+    .kv-val { font-size: 13.5px; font-weight: 700; word-break: break-all; }
+
+    .btn {
+      width: 100%; padding: 11px 14px; border-radius: 12px; border: none;
+      font-size: 13.5px; font-weight: 700; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-primary { background: var(--gold-grad); color: #0f172a; }
+    .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: rgba(239, 68, 68, 0.12); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-sm { width: auto; padding: 6px 11px; font-size: 12px; border-radius: 9px; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px 12px; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+      font-size: 13.5px; outline: none; font-family: inherit;
+    }
+    .form-group input:focus { border-color: #f59e0b; }
+
+    /* Payment Methods (5 Methods including Account Balance) */
+    .pay-methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+    .pay-method-btn {
+      background: var(--surface-2); border: 1.5px solid var(--border); border-radius: 14px;
+      padding: 10px 8px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 700; color: var(--text);
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+    }
+    .pay-method-btn.active { border-color: #f59e0b; background: var(--gold-bg); color: var(--primary); }
+    .pay-method-btn i { font-size: 18px; }
+
+    .pay-details-box {
+      background: var(--surface-2); border: 1.5px solid var(--gold-border); border-radius: 16px;
+      padding: 14px; margin-bottom: 14px;
+    }
+    .addr-copy-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 9px 11px; margin-top: 6px;
+    }
+    .addr-text { font-size: 12.5px; font-weight: 800; word-break: break-all; font-family: ui-monospace, Menlo, monospace; }
+
+    .err-box {
+      background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #ef4444; padding: 10px 12px; border-radius: 12px; font-size: 12.5px; font-weight: 700;
+      margin-bottom: 10px; display: none; line-height: 1.45;
+    }
+    .err-box.show { display: block; }
+
+    /* Easypaisa QR Card matching Photo */
+    .ep-qr-card {
+      background: #ffffff; color: #0f172a; border-radius: 18px; padding: 18px 14px;
+      text-align: center; border: 1px solid #e2e8f0; max-width: 310px; margin: 10px auto 0;
+    }
+    .ep-logo-text { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: #1e293b; margin-bottom: 6px; }
+    .ep-logo-text span { color: #00a859; }
+    .ep-qr-sub { font-size: 12.5px; color: #334155; line-height: 1.4; margin-bottom: 12px; font-weight: 600; }
+    .ep-qr-frame {
+      display: inline-flex; padding: 8px; background: #ffffff; border-radius: 12px;
+      border: 1px solid #e2e8f0; margin-bottom: 10px;
+    }
+    .ep-qr-frame img, .ep-qr-frame canvas { width: 190px; height: 190px; display: block; object-fit: contain; }
+    .ep-acc-name { font-size: 16px; font-weight: 900; color: #0f172a; letter-spacing: 0.4px; }
+    .ep-acc-msisdn { font-size: 12.5px; color: #475569; font-weight: 700; margin-top: 3px; }
+
+    /* History Cards */
+    .history-card {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 13px 14px; margin-bottom: 10px;
+    }
+    .history-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+    .status-pill {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 99px;
+      background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
+    }
+    .status-pill.approved { background: rgba(16, 185, 129, 0.14); color: #10b981; border-color: rgba(16, 185, 129, 0.35); }
+    .status-pill.rejected { background: rgba(239, 68, 68, 0.14); color: #ef4444; border-color: rgba(239, 68, 68, 0.35); }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.62); backdrop-filter: blur(4px);
+      z-index: 100; display: none; align-items: flex-end; justify-content: center;
+    }
+    @media (min-width: 600px) { .modal-overlay { align-items: center; padding: 16px; } }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      width: 100%; max-width: 520px; background: var(--surface);
+      border-radius: 24px 24px 0 0; padding: 20px 18px 26px; max-height: 92vh; overflow-y: auto;
+    }
+    @media (min-width: 600px) { .modal-sheet { border-radius: 24px; } }
+    .sheet-handle { width: 42px; height: 5px; background: var(--border); border-radius: 99px; margin: 0 auto 14px; }
+
+    .toast {
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%) translateY(-16px);
+      background: #0f172a; color: #fde047; border: 1px solid rgba(245, 158, 11, 0.45);
+      padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 600;
+      z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.25s;
+      display: inline-flex; align-items: center; gap: 8px; max-width: 92%; text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header with Region + All Countries + Save (60-Day Lock) on Right -->
+    <header class="top-header">
+      <div class="brand">
+        <div class="brand-logo" id="headerBrandLogo">
+          <svg viewBox="0 0 64 64" fill="none">
+            <defs>
+              <linearGradient id="ossianGoldBuy" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fde047"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#b45309"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="20" stroke="url(#ossianGoldBuy)" stroke-width="5.5"/>
+            <path d="M32 6L36 16H28L32 6Z" fill="url(#ossianGoldBuy)"/>
+            <circle cx="32" cy="32" r="7" fill="url(#ossianGoldBuy)"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">OSSIAN TOK Buy</div>
+          <span class="brand-sub" id="activeCountryCurrencySub">Select &amp; Save Region/Country</span>
+        </div>
+      </div>
+
+      <div class="header-right-controls">
+        <select id="regionSelect" class="region-select" title="Select Region" onchange="onRegionChange()">
+          <option value="">Select Region</option>
+          <option value="ALL">All Regions</option>
+          <option value="AS">Asia</option>
+          <option value="ME">Middle East</option>
+          <option value="EU">Europe</option>
+          <option value="NA">North America</option>
+          <option value="SA">South America</option>
+          <option value="AF">Africa</option>
+          <option value="OC">Oceania</option>
+        </select>
+        <select id="countrySelect" class="country-select" title="Select Country"></select>
+        <button type="button" id="saveRegionBtn" class="save-region-btn" onclick="saveRegionAndCountry()">
+          <i class="fa-solid fa-floppy-disk"></i> Save
+        </button>
+        <span id="regionLockChip" class="region-lock-chip"><i class="fa-solid fa-lock"></i> <span id="regionLockDaysText">60d</span></span>
+        <button class="icon-btn" onclick="refreshAllData(true)" title="Sync Firebase">
+          <i class="fa-solid fa-arrows-rotate gold-icon"></i>
+        </button>
+        <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Theme">
+          <i class="fa-solid fa-moon gold-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Hero Summary -->
+      <section class="hero-card">
+        <div class="hero-top">
+          <div>
+            <h1><i class="fa-solid fa-coins gold-icon"></i> OSSIAN TOK Buy</h1>
+            <p>Select your Region &amp; Country above and click <strong>Save</strong> to view prices in your country's currency (changeable once every 60 days).</p>
+          </div>
+          <div id="heroAuthAction"></div>
+        </div>
+        <div class="hero-pills">
+          <span class="hero-pill"><i class="fa-solid fa-user gold-icon"></i> Account: <strong id="heroUserName">Guest (Sign In)</strong></span>
+          <span class="hero-pill"><i class="fa-solid fa-coins gold-icon"></i> Tokens: <strong id="heroUserTokens">0</strong></span>
+          <span class="hero-pill"><i class="fa-solid fa-wallet gold-icon"></i> Balance: <strong id="heroUserBalance">$0.00</strong></span>
+          <span class="hero-pill"><i class="fa-solid fa-earth-asia gold-icon"></i> Price Currency: <strong id="heroCurrencyBadge">Not Saved</strong></span>
+        </div>
+      </section>
+
+      <!-- Region Prompt Banner (shown until saved) -->
+      <div class="notice-banner" id="regionPromptBanner">
+        <div><i class="fa-solid fa-earth-americas gold-icon"></i> Prices are hidden! Select your <strong>Region</strong> &amp; <strong>Country</strong> at the top-right and click <strong>Save</strong> to unlock prices.</div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="top-tabs">
+        <button class="tab-btn active" id="tabBtnBuy" onclick="switchSection('buy')">
+          <i class="fa-solid fa-bag-shopping"></i> Buy Tokens (20)
+        </button>
+        <button class="tab-btn" id="tabBtnHistory" onclick="switchSection('history')">
+          <i class="fa-solid fa-clock-rotate-left"></i> History
+        </button>
+        <button class="tab-btn" id="tabBtnAccount" onclick="switchSection('account')">
+          <i class="fa-solid fa-id-card"></i> Account Details
+        </button>
+      </div>
+
+      <!-- 1. 20 TOKEN BUY BOXES -->
+      <section id="sec-buy" class="tab-section active">
+        <div id="packagesGrid" class="packages-grid"></div>
+      </section>
+
+      <!-- 2. PURCHASE HISTORY -->
+      <section id="sec-history" class="tab-section">
+        <div class="panel-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <div style="font-size:15px; font-weight:800;">
+              <i class="fa-solid fa-receipt gold-icon"></i> Token Purchase History
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="fetchUserOrders(true)">
+              <i class="fa-solid fa-arrows-rotate gold-icon"></i> Refresh
+            </button>
+          </div>
+          <div id="historyListBody"></div>
+        </div>
+      </section>
+
+      <!-- 3. FULL USER ACCOUNT DETAILS -->
+      <section id="sec-account" class="tab-section">
+        <div class="panel-card" id="accountDetailsBody"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Checkout / Payment Modal -->
+  <div class="modal-overlay" id="checkoutModal" onclick="closeModalOnOverlay(event, 'checkoutModal')">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:10px;">
+        <div>
+          <h3 id="modalPkgTitle" style="font-size:18px; font-weight:800;">Box #1 — 2,750 Tokens</h3>
+          <div id="modalPkgBreakdown" style="font-size:12px; color:var(--text-muted);">2,500 Base + 250 Extra Bonus Tokens</div>
+        </div>
+        <div style="text-align:right;">
+          <div id="modalLocalPrice" style="font-size:18px; font-weight:900; color:var(--primary);">-</div>
+          <div id="modalAccountTag" style="font-size:11px; color:var(--text-muted);">-</div>
+        </div>
+      </div>
+
+      <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:7px;">
+        Select Payment Method (5 Options)
+      </div>
+      <div class="pay-methods-grid">
+        <button type="button" class="pay-method-btn active" data-pm="balance" onclick="selectPayMethod('balance')" style="grid-column: 1 / -1;">
+          <i class="fa-solid fa-wallet gold-icon"></i>
+          <span>1. Pay with Account Balance ($) — Instant Tokens</span>
+        </button>
+        <button type="button" class="pay-method-btn" data-pm="binance" onclick="selectPayMethod('binance')">
+          <i class="fa-brands fa-bitcoin gold-icon"></i>
+          <span>2. Binance Pay (UID)</span>
+        </button>
+        <button type="button" class="pay-method-btn" data-pm="trc20" onclick="selectPayMethod('trc20')">
+          <i class="fa-solid fa-coins gold-icon"></i>
+          <span>3. TRC-20 USDT</span>
+        </button>
+        <button type="button" class="pay-method-btn" data-pm="ep_iban" onclick="selectPayMethod('ep_iban')">
+          <i class="fa-solid fa-building-columns gold-icon"></i>
+          <span>4. Easypaisa IBAN</span>
+        </button>
+        <button type="button" class="pay-method-btn" data-pm="ep_qr" onclick="selectPayMethod('ep_qr')">
+          <i class="fa-solid fa-qrcode gold-icon"></i>
+          <span>5. Easypaisa QR Pay</span>
+        </button>
+      </div>
+
+      <div class="pay-details-box" id="paymentMethodDetails"></div>
+
+      <form id="orderSubmitForm">
+        <div id="manualTxFields">
+          <div class="form-group">
+            <label>Transaction ID / Reference / Binance Order ID</label>
+            <input type="text" id="orderTxIdInput" placeholder="Enter your Transaction ID or Reference" />
+          </div>
+          <div class="form-group">
+            <label>Sender Account / Number / Wallet (Optional)</label>
+            <input type="text" id="orderSenderInput" placeholder="e.g. Sender UID, Phone, or Wallet" />
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button type="submit" class="btn btn-primary" id="submitOrderBtn">
+            <i class="fa-solid fa-paper-plane"></i> Confirm &amp; Submit Order
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('checkoutModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Clean Login Modal -->
+  <div class="modal-overlay" id="loginModal" onclick="closeModalOnOverlay(event, 'loginModal')">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <h3 style="font-size:18px; font-weight:800; margin-bottom:6px;">
+        <i class="fa-solid fa-right-to-bracket gold-icon"></i> Sign In to OSSIAN PRO Account
+      </h3>
+      <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px;">
+        Sign in with your registered OSSIAN PRO email &amp; password or upload your private Login QR code.
+      </p>
+      <div class="err-box" id="loginSecurityErrBox"></div>
+      <form id="buyerLoginForm">
+        <div class="form-group">
+          <label>Registered Email</label>
+          <input type="email" id="buyerEmailInput" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="buyerPasswordInput" placeholder="Enter your password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="buyerLoginBtn" style="margin-bottom:10px;">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+      <input type="file" id="buyerQrLoginFile" accept="image/*" style="display:none;" />
+      <button type="button" class="btn btn-secondary" onclick="triggerBuyerQrUpload()">
+        <i class="fa-solid fa-qrcode gold-icon"></i> Or Upload OSSIAN PRO Login QR
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span>Updated!</span></div>
+
+  <script>
+    (function () {
+      const _j = function (a) { return a.join(""); };
+      const API_KEY = _j(["AIzaSyAmRa", "nnDqIGfpZb", "rM5UmQODj5", "Ww7AR6sHI"]);
+      const PROJECT_ID = _j(["ossian", "-web"]);
+      const USERS_URL = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents/users";
+      const ORDERS_URL = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents/token_orders";
+      const SETTINGS_URL = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents/settings";
+      const CONFIG_URL = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents/config";
+      const BRANDING_URL = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents/branding";
+      const SESSION_SECRET_KEY = "OSSIAN_PRO_BANK_SEC_V3";
+      const SIXTY_DAYS_MS = 60 * 24 * 3600 * 1000;
+
+      const TRC20_ADDRESS = "TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ";
+      const EASYPAISA_IBAN = "PK36TMFB0000000050698679";
+      const EASYPAISA_NAME = "MUHAMMAD ASLAM";
+      const EASYPAISA_MSISDN = "*******4110";
+
+      let adminBinanceUid = "";
+      let adminEasypaisaQrUrl = "";
+      let currentUser = null;
+      let ordersList = [];
+      let creditedOrderIds = {};
+      let isCreditingOrders = false;
+
+      let selectedPkgIndex = 0;
+      let selectedPayMethod = "balance";
+      let fxRates = {};
+
+      let savedRegionState = { saved: false, region: "", country: "", savedAt: 0 };
+
+      const TOKEN_PACKAGES = [
+        { id: 1, usd: 2, base: 2500, bonus: 250 },
+        { id: 2, usd: 4, base: 5000, bonus: 550 },
+        { id: 3, usd: 6, base: 7500, bonus: 900 },
+        { id: 4, usd: 8, base: 10000, bonus: 1300 },
+        { id: 5, usd: 10, base: 12500, bonus: 1750 },
+        { id: 6, usd: 15, base: 18750, bonus: 2815 },
+        { id: 7, usd: 20, base: 25000, bonus: 4000 },
+        { id: 8, usd: 25, base: 31250, bonus: 5315 },
+        { id: 9, usd: 30, base: 37500, bonus: 6750 },
+        { id: 10, usd: 40, base: 50000, bonus: 9500 },
+        { id: 11, usd: 50, base: 62500, bonus: 12500 },
+        { id: 12, usd: 65, base: 81250, bonus: 17875 },
+        { id: 13, usd: 80, base: 100000, bonus: 24000 },
+        { id: 14, usd: 100, base: 125000, bonus: 31250 },
+        { id: 15, usd: 125, base: 156250, bonus: 42190 },
+        { id: 16, usd: 150, base: 187500, bonus: 54375 },
+        { id: 17, usd: 200, base: 250000, bonus: 77500 },
+        { id: 18, usd: 250, base: 312500, bonus: 103125 },
+        { id: 19, usd: 350, base: 437500, bonus: 148750 },
+        { id: 20, usd: 500, base: 625000, bonus: 218750 }
+      ];
+
+      const COUNTRIES = [
+        ["AS","Afghanistan","AFN","؋",70],["AS","Armenia","AMD","֏",387],["AS","Azerbaijan","AZN","₼",1.7],
+        ["AS","Bangladesh","BDT","৳",119.5],["AS","Bhutan","BTN","Nu.",84],["AS","Brunei","BND","B$",1.34],
+        ["AS","Cambodia","KHR","៛",4060],["AS","China","CNY","¥",7.24],["AS","Georgia","GEL","₾",2.72],
+        ["AS","Hong Kong","HKD","HK$",7.78],["AS","India","INR","₹",84.4],["AS","Indonesia","IDR","Rp ",15850],
+        ["AS","Japan","JPY","¥",154],["AS","Kazakhstan","KZT","₸",495],["AS","Kyrgyzstan","KGS","с",86.5],
+        ["AS","Laos","LAK","₭",21900],["AS","Malaysia","MYR","RM ",4.46],["AS","Maldives","MVR","Rf ",15.4],
+        ["AS","Mongolia","MNT","₮",3410],["AS","Myanmar","MMK","K ",2100],["AS","Nepal","NPR","Rs ",135],
+        ["AS","North Korea","KPW","₩",900],["AS","Pakistan","PKR","Rs ",278.5],["AS","Philippines","PHP","₱",58.8],
+        ["AS","Singapore","SGD","S$",1.34],["AS","South Korea","KRW","₩",1395],["AS","Sri Lanka","LKR","Rs ",292],
+        ["AS","Taiwan","TWD","NT$",32.5],["AS","Tajikistan","TJS","SM ",10.65],["AS","Thailand","THB","฿",34.6],
+        ["AS","Timor-Leste","USD","$",1],["AS","Turkmenistan","TMT","m",3.5],["AS","Uzbekistan","UZS","so'm ",12800],
+        ["AS","Vietnam","VND","₫",25400],
+        ["ME","Bahrain","BHD","BD ",0.376],["ME","Cyprus","EUR","€",0.94],["ME","Iran","IRR","﷼",42000],
+        ["ME","Iraq","IQD","ع.د ",1310],["ME","Israel","ILS","₪",3.74],["ME","Jordan","JOD","JD ",0.709],
+        ["ME","Kuwait","KWD","KD ",0.307],["ME","Lebanon","LBP","L£ ",89500],["ME","Oman","OMR","OMR ",0.385],
+        ["ME","Palestine","ILS","₪",3.74],["ME","Qatar","QAR","QR ",3.64],["ME","Saudi Arabia","SAR","SAR ",3.75],
+        ["ME","Syria","SYP","£S ",13000],["ME","Turkey","TRY","₺",34.5],["ME","United Arab Emirates","AED","AED ",3.6725],
+        ["ME","Yemen","YER","﷼",250],
+        ["EU","Albania","ALL","L ",92],["EU","Andorra","EUR","€",0.94],["EU","Austria","EUR","€",0.94],
+        ["EU","Belarus","BYN","Br ",3.27],["EU","Belgium","EUR","€",0.94],["EU","Bosnia & Herzegovina","BAM","KM ",1.84],
+        ["EU","Bulgaria","BGN","лв",1.84],["EU","Croatia","EUR","€",0.94],["EU","Czechia","CZK","Kč ",23.9],
+        ["EU","Denmark","DKK","kr ",7.02],["EU","Estonia","EUR","€",0.94],["EU","Finland","EUR","€",0.94],
+        ["EU","France","EUR","€",0.94],["EU","Germany","EUR","€",0.94],["EU","Greece","EUR","€",0.94],
+        ["EU","Hungary","HUF","Ft ",386],["EU","Iceland","ISK","kr ",138],["EU","Ireland","EUR","€",0.94],
+        ["EU","Italy","EUR","€",0.94],["EU","Kosovo","EUR","€",0.94],["EU","Latvia","EUR","€",0.94],
+        ["EU","Liechtenstein","CHF","CHF ",0.88],["EU","Lithuania","EUR","€",0.94],["EU","Luxembourg","EUR","€",0.94],
+        ["EU","Malta","EUR","€",0.94],["EU","Moldova","MDL","L ",18.1],["EU","Monaco","EUR","€",0.94],
+        ["EU","Montenegro","EUR","€",0.94],["EU","Netherlands","EUR","€",0.94],["EU","North Macedonia","MKD","ден ",57.8],
+        ["EU","Norway","NOK","kr ",11.0],["EU","Poland","PLN","zł",4.08],["EU","Portugal","EUR","€",0.94],
+        ["EU","Romania","RON","lei ",4.68],["EU","Russia","RUB","₽",98],["EU","San Marino","EUR","€",0.94],
+        ["EU","Serbia","RSD","дин ",110],["EU","Slovakia","EUR","€",0.94],["EU","Slovenia","EUR","€",0.94],
+        ["EU","Spain","EUR","€",0.94],["EU","Sweden","SEK","kr ",10.9],["EU","Switzerland","CHF","CHF ",0.88],
+        ["EU","Ukraine","UAH","₴",41.3],["EU","United Kingdom","GBP","£",0.79],["EU","Vatican City","EUR","€",0.94],
+        ["NA","Antigua & Barbuda","XCD","EC$",2.7],["NA","Bahamas","BSD","B$",1],["NA","Barbados","BBD","Bds$",2],
+        ["NA","Belize","BZD","BZ$",2],["NA","Canada","CAD","C$",1.40],["NA","Costa Rica","CRC","₡",512],
+        ["NA","Cuba","CUP","$",24],["NA","Dominica","XCD","EC$",2.7],["NA","Dominican Republic","DOP","RD$",60.2],
+        ["NA","El Salvador","USD","$",1],["NA","Grenada","XCD","EC$",2.7],["NA","Guatemala","GTQ","Q",7.72],
+        ["NA","Haiti","HTG","G ",131],["NA","Honduras","HNL","L ",25.2],["NA","Jamaica","JMD","J$",158],
+        ["NA","Mexico","MXN","Mex$",20.4],["NA","Nicaragua","NIO","C$",36.8],["NA","Panama","PAB","B/.",1],
+        ["NA","Saint Kitts & Nevis","XCD","EC$",2.7],["NA","Saint Lucia","XCD","EC$",2.7],["NA","Saint Vincent","XCD","EC$",2.7],
+        ["NA","Trinidad & Tobago","TTD","TT$",6.78],["NA","United States","USD","$",1],
+        ["SA","Argentina","ARS","$",1000],["SA","Bolivia","BOB","Bs ",6.91],["SA","Brazil","BRL","R$",5.78],
+        ["SA","Chile","CLP","$",975],["SA","Colombia","COP","$",4400],["SA","Ecuador","USD","$",1],
+        ["SA","Guyana","GYD","G$",209],["SA","Paraguay","PYG","₲",7800],["SA","Peru","PEN","S/",3.78],
+        ["SA","Suriname","SRD","$",35.5],["SA","Uruguay","UYU","$U ",42.5],["SA","Venezuela","VES","Bs.",45],
+        ["AF","Algeria","DZD","دج ",133.5],["AF","Angola","AOA","Kz ",912],["AF","Benin","XOF","CFA ",616],
+        ["AF","Botswana","BWP","P ",13.6],["AF","Burkina Faso","XOF","CFA ",616],["AF","Burundi","BIF","FBu ",2900],
+        ["AF","Cabo Verde","CVE","$",103.5],["AF","Cameroon","XAF","FCFA ",616],["AF","Central African Rep.","XAF","FCFA ",616],
+        ["AF","Chad","XAF","FCFA ",616],["AF","Comoros","KMF","CF ",462],["AF","Congo (DRC)","CDF","FC ",2850],
+        ["AF","Congo (Rep.)","XAF","FCFA ",616],["AF","Cote d'Ivoire","XOF","CFA ",616],["AF","Djibouti","DJF","Fdj ",177.7],
+        ["AF","Egypt","EGP","E£ ",49.3],["AF","Equatorial Guinea","XAF","FCFA ",616],["AF","Eritrea","ERN","Nfk ",15],
+        ["AF","Eswatini","SZL","E ",18.1],["AF","Ethiopia","ETB","Br ",122],["AF","Gabon","XAF","FCFA ",616],
+        ["AF","Gambia","GMD","D ",71],["AF","Ghana","GHS","₵",16.0],["AF","Guinea","GNF","FG ",8600],
+        ["AF","Guinea-Bissau","XOF","CFA ",616],["AF","Kenya","KES","KSh ",129],["AF","Lesotho","LSL","L ",18.1],
+        ["AF","Liberia","LRD","L$",192],["AF","Libya","LYD","LD ",4.85],["AF","Madagascar","MGA","Ar ",4650],
+        ["AF","Malawi","MWK","MK ",1735],["AF","Mali","XOF","CFA ",616],["AF","Mauritania","MRU","UM ",39.7],
+        ["AF","Mauritius","MUR","₨ ",46.5],["AF","Morocco","MAD","MAD ",9.9],["AF","Mozambique","MZN","MT ",63.9],
+        ["AF","Namibia","NAD","N$",18.1],["AF","Niger","XOF","CFA ",616],["AF","Nigeria","NGN","₦",1670],
+        ["AF","Rwanda","RWF","RF ",1365],["AF","Sao Tome & Principe","STN","Db ",23],["AF","Senegal","XOF","CFA ",616],
+        ["AF","Seychelles","SCR","₨ ",14.2],["AF","Sierra Leone","SLE","Le ",22.6],["AF","Somalia","SOS","Sh ",571],
+        ["AF","South Africa","ZAR","R ",18.1],["AF","South Sudan","SSP","£",3200],["AF","Sudan","SDG","£",601],
+        ["AF","Tanzania","TZS","TSh ",2660],["AF","Togo","XOF","CFA ",616],["AF","Tunisia","TND","DT ",3.13],
+        ["AF","Uganda","UGX","USh ",3680],["AF","Zambia","ZMW","ZK ",27.2],["AF","Zimbabwe","ZWG","ZiG ",25.5],
+        ["OC","Australia","AUD","A$",1.53],["OC","Fiji","FJD","FJ$",2.26],["OC","Kiribati","AUD","A$",1.53],
+        ["OC","Marshall Islands","USD","$",1],["OC","Micronesia","USD","$",1],["OC","Nauru","AUD","A$",1.53],
+        ["OC","New Zealand","NZD","NZ$",1.69],["OC","Palau","USD","$",1],["OC","Papua New Guinea","PGK","K ",3.98],
+        ["OC","Samoa","WST","WS$",2.78],["OC","Solomon Islands","SBD","SI$",8.4],["OC","Tonga","TOP","T$",2.38],
+        ["OC","Tuvalu","AUD","A$",1.53],["OC","Vanuatu","VUV","VT ",120]
+      ];
+
+      function safeGet(k, f) { try { var v = localStorage.getItem(k); return v !== null ? v : f; } catch (e) { return f; } }
+      function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+      function roundUsd(val) { return Math.round((Number(val) || 0) * 100) / 100; }
+      function escapeHtml(s) {
+        return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+      }
+      function formatNum(n) { return (Number(n) || 0).toLocaleString(); }
+
+      function hashSecret(str) {
+        var h1 = 0x811c9dc5, h2 = 0x9e3779b9, s = String(str || "");
+        for (var i = 0; i < s.length; i++) {
+          var ch = s.charCodeAt(i);
+          h1 ^= ch; h1 = Math.imul(h1, 0x01000193);
+          h2 ^= ch + (i << 3); h2 = Math.imul(h2, 0x85ebca6b);
+        }
+        return (h1 >>> 0).toString(16).padStart(8, "0") + (h2 >>> 0).toString(16).padStart(8, "0");
+      }
+
+      async function sha256Salted(secret, salt) {
+        var raw = String(salt || SESSION_SECRET_KEY) + "::" + String(secret || "");
+        try {
+          if (window.crypto && window.crypto.subtle && typeof TextEncoder !== "undefined") {
+            var digest = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
+            return Array.from(new Uint8Array(digest)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+          }
+        } catch (e) {}
+        return "H256-" + hashSecret(raw) + "-" + hashSecret(raw.split("").reverse().join(""));
+      }
+
+      function base64UrlToBytes(b64u) {
+        var b64 = String(b64u || "").replace(/-/g, "+").replace(/_/g, "/");
+        while (b64.length % 4) b64 += "=";
+        var bin = atob(b64), arr = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return arr;
+      }
+      function bytesToUtf8(bytes) {
+        if (typeof TextDecoder !== "undefined") return new TextDecoder().decode(bytes);
+        var s = ""; for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+        return decodeURIComponent(escape(s));
+      }
+      function deriveKeystreamByte(seed, index) {
+        var h = hashSecret(seed + "::" + Math.floor(index / 8));
+        return parseInt(h.substr((index % 8) * 2, 2), 16) & 255;
+      }
+      function unsealQrPayload(rawText) {
+        var parts = String(rawText || "").trim().split(".");
+        if (parts.length !== 4) return null;
+        var prefix = parts[0], nonce = parts[1], cipherB64 = parts[2], mac = parts[3];
+        if (prefix !== "OPR1" || !nonce || !cipherB64 || !mac) return null;
+        var seed = SESSION_SECRET_KEY + "|" + prefix + "|" + nonce;
+        if (mac !== hashSecret(seed + "|MAC|" + cipherB64)) return null;
+        try {
+          var cBytes = base64UrlToBytes(cipherB64), pBytes = new Uint8Array(cBytes.length);
+          for (var i = 0; i < cBytes.length; i++) pBytes[i] = cBytes[i] ^ deriveKeystreamByte(seed, i);
+          return JSON.parse(bytesToUtf8(pBytes));
+        } catch (e) { return null; }
+      }
+
+      /* =======================================================
+         REGION & COUNTRY LOCK (HIDDEN UNTIL SAVED, 60-DAY LOCK)
+         ======================================================= */
+      function getRegionStorageKey() {
+        return currentUser && currentUser.uid ? ("ossian_buy_region_lock_" + currentUser.uid) : "ossian_buy_region_lock_guest";
+      }
+
+      function isRegionCurrentlyLocked() {
+        return savedRegionState.saved && savedRegionState.savedAt && ((Date.now() - savedRegionState.savedAt) < SIXTY_DAYS_MS);
+      }
+
+      function getRemainingLockDaysText() {
+        var rem = Math.max(0, (savedRegionState.savedAt + SIXTY_DAYS_MS) - Date.now());
+        var days = Math.ceil(rem / (24 * 3600 * 1000));
+        return days + "d left";
+      }
+
+      function populateCountriesDropdown(regionCode, preferredCountry) {
+        var sel = document.getElementById("countrySelect");
+        if (!regionCode) {
+          sel.innerHTML = '<option value="">Select Country</option>';
+          return;
+        }
+        var list = COUNTRIES.filter(function (c) {
+          return regionCode === "ALL" || c[0] === regionCode;
+        });
+        sel.innerHTML = '<option value="">Select Country</option>' + list.map(function (c) {
+          return '<option value="' + escapeHtml(c[1]) + '">' + escapeHtml(c[1]) + ' (' + escapeHtml(c[2]) + ')</option>';
+        }).join("");
+
+        if (preferredCountry && list.some(function (c) { return c[1] === preferredCountry; })) {
+          sel.value = preferredCountry;
+        } else {
+          sel.value = "";
+        }
+      }
+
+      function onRegionChange() {
+        if (isRegionCurrentlyLocked()) return;
+        var reg = document.getElementById("regionSelect").value;
+        populateCountriesDropdown(reg, "");
+      }
+
+      async function syncRegionLockToCloud(uid, region, country, savedAt) {
+        if (!uid) return;
+        try {
+          await fetch(USERS_URL + "/" + encodeURIComponent(uid) +
+            "?updateMask.fieldPaths=buyRegion&updateMask.fieldPaths=buyCountry&updateMask.fieldPaths=regionSavedAt&key=" + encodeURIComponent(API_KEY), {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fields: {
+                buyRegion: { stringValue: region },
+                buyCountry: { stringValue: country },
+                regionSavedAt: { integerValue: String(savedAt) }
+              }
+            })
+          });
+        } catch (e) {}
+      }
+
+      async function saveRegionAndCountry() {
+        if (isRegionCurrentlyLocked()) {
+          showToast("Locked for 60 days! Remaining: " + getRemainingLockDaysText());
+          return;
+        }
+        var reg = document.getElementById("regionSelect").value;
+        var country = document.getElementById("countrySelect").value;
+        if (!reg || !country) {
+          showToast("Please select both Region and Country first!");
+          return;
+        }
+
+        var now = Date.now();
+        savedRegionState = { saved: true, region: reg, country: country, savedAt: now };
+        safeSet(getRegionStorageKey(), JSON.stringify(savedRegionState));
+        if (currentUser && currentUser.uid) {
+          currentUser.buyRegion = reg;
+          currentUser.buyCountry = country;
+          currentUser.regionSavedAt = now;
+          safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+          await syncRegionLockToCloud(currentUser.uid, reg, country, now);
+        }
+        applyRegionAndPriceUI();
+        showToast("Saved! Prices shown in " + country + " currency (Locked for 60 days).");
+      }
+
+      function loadSavedRegionState() {
+        var raw = null;
+        try { raw = JSON.parse(safeGet(getRegionStorageKey(), "null")); } catch (e) { raw = null; }
+        if (currentUser && currentUser.buyCountry && currentUser.regionSavedAt) {
+          savedRegionState = {
+            saved: true,
+            region: currentUser.buyRegion || "ALL",
+            country: currentUser.buyCountry,
+            savedAt: Number(currentUser.regionSavedAt)
+          };
+          safeSet(getRegionStorageKey(), JSON.stringify(savedRegionState));
+        } else if (raw && raw.saved && raw.country) {
+          savedRegionState = raw;
+        } else {
+          savedRegionState = { saved: false, region: "", country: "", savedAt: 0 };
+        }
+      }
+
+      function applyRegionAndPriceUI() {
+        var regSel = document.getElementById("regionSelect");
+        var cntSel = document.getElementById("countrySelect");
+        var saveBtn = document.getElementById("saveRegionBtn");
+        var lockChip = document.getElementById("regionLockChip");
+        var banner = document.getElementById("regionPromptBanner");
+
+        if (savedRegionState.saved && savedRegionState.country) {
+          regSel.value = savedRegionState.region || "ALL";
+          populateCountriesDropdown(regSel.value, savedRegionState.country);
+          var locked = isRegionCurrentlyLocked();
+          regSel.disabled = locked;
+          cntSel.disabled = locked;
+          saveBtn.disabled = locked;
+          if (locked) {
+            lockChip.classList.add("show");
+            document.getElementById("regionLockDaysText").textContent = "Locked " + getRemainingLockDaysText();
+          } else {
+            lockChip.classList.remove("show");
+          }
+
+          var info = getSelectedCountryInfo();
+          document.getElementById("activeCountryCurrencySub").textContent = info.country + " • " + info.code;
+          document.getElementById("heroCurrencyBadge").textContent = info.country + " (" + info.code + ")";
+          banner.style.display = "none";
+        } else {
+          regSel.disabled = false;
+          cntSel.disabled = false;
+          saveBtn.disabled = false;
+          lockChip.classList.remove("show");
+          populateCountriesDropdown(regSel.value, "");
+          document.getElementById("activeCountryCurrencySub").textContent = "Select & Save Region/Country";
+          document.getElementById("heroCurrencyBadge").textContent = "Not Saved";
+          banner.style.display = "flex";
+        }
+        renderPackagesGrid();
+        renderHistoryList();
+      }
+
+      function getSelectedCountryInfo() {
+        var name = savedRegionState.country || "";
+        var row = COUNTRIES.find(function (c) { return c[1] === name; });
+        if (!row) return null;
+        var liveRate = fxRates[row[2]] ? Number(fxRates[row[2]]) : row[4];
+        return {
+          region: row[0],
+          country: row[1],
+          code: row[2],
+          symbol: row[3],
+          rate: liveRate || row[4] || 1
+        };
+      }
+
+      function formatSelectedCountryPrice(usdAmount) {
+        var info = getSelectedCountryInfo();
+        if (!info) return "Select & Save Country";
+        var val = usdAmount * info.rate;
+        var formatted = val >= 1000
+          ? Math.round(val).toLocaleString()
+          : (info.rate === 1 ? val.toFixed(2) : (val >= 100 ? val.toFixed(0) : val.toFixed(2)));
+        return info.symbol + formatted + " " + info.code;
+      }
+
+      async function fetchLiveExchangeRates() {
+        try {
+          var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+          var t = ctrl ? setTimeout(function () { ctrl.abort(); }, 3500) : null;
+          var res = await fetch("https://open.er-api.com/v6/latest/USD", { signal: ctrl ? ctrl.signal : undefined });
+          if (t) clearTimeout(t);
+          if (res.ok) {
+            var data = await res.json();
+            if (data && data.rates) {
+              fxRates = data.rates;
+              if (savedRegionState.saved) {
+                renderPackagesGrid();
+                if (document.getElementById("checkoutModal").classList.contains("open")) {
+                  updateCheckoutModalHeaderAndDetails();
+                }
+              }
+            }
+          }
+        } catch (e) {}
+      }
+
+      /* =======================================================
+         20 TOKEN BUY BOXES RENDERING
+         ======================================================= */
+      function renderPackagesGrid() {
+        var grid = document.getElementById("packagesGrid");
+        var isUnlocked = Boolean(savedRegionState.saved && savedRegionState.country);
+
+        grid.innerHTML = TOKEN_PACKAGES.map(function (pkg, idx) {
+          var total = pkg.base + pkg.bonus;
+          var pct = Math.round((pkg.bonus / pkg.base) * 100);
+          var priceHtml = isUnlocked
+            ? '<div class="pkg-local-price">' + escapeHtml(formatSelectedCountryPrice(pkg.usd)) + '</div>'
+            : '<div class="pkg-locked-price"><i class="fa-solid fa-lock gold-icon"></i> Select &amp; Save Country</div>';
+
+          return '<div class="pkg-card" onclick="openCheckoutModal(' + idx + ')">' +
+            '<div>' +
+              '<div class="pkg-top-row">' +
+                '<span class="pkg-num">Box #' + pkg.id + '</span>' +
+                '<span class="pkg-bonus-badge">+' + pct + '% Extra</span>' +
+              '</div>' +
+              '<div class="pkg-total-tok">' + formatNum(total) + ' TOK</div>' +
+              '<div class="pkg-breakdown">' +
+                'Base: <strong>' + formatNum(pkg.base) + '</strong><br>' +
+                'Extra Bonus: <strong style="color:#10b981;">+' + formatNum(pkg.bonus) + '</strong>' +
+              '</div>' +
+            '</div>' +
+            '<div>' +
+              '<div class="pkg-price-box">' + priceHtml + '</div>' +
+              '<button type="button" class="btn btn-primary btn-sm" style="width:100%;">' +
+                '<i class="fa-solid fa-cart-shopping"></i> ' + (isUnlocked ? 'Buy Now' : 'Select Country First') +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        }).join("");
+      }
+
+      /* =======================================================
+         CHECKOUT MODAL & 5 PAYMENT METHODS (INCLUDING ACCOUNT BALANCE)
+         ======================================================= */
+      function openCheckoutModal(idx) {
+        if (!savedRegionState.saved || !savedRegionState.country) {
+          showToast("Please select Region & Country at top right and click Save first!");
+          document.getElementById("regionSelect").focus();
+          return;
+        }
+        if (!currentUser) {
+          showToast("Please Sign In first to buy Tokens!");
+          openLoginModal();
+          return;
+        }
+        if (currentUser.suspended) {
+          showToast("Suspended account cannot purchase tokens!");
+          return;
+        }
+        selectedPkgIndex = idx;
+        selectedPayMethod = "balance";
+        document.getElementById("orderSubmitForm").reset();
+        updateCheckoutModalHeaderAndDetails();
+        document.getElementById("checkoutModal").classList.add("open");
+      }
+
+      function selectPayMethod(method) {
+        selectedPayMethod = method;
+        document.querySelectorAll(".pay-method-btn").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-pm") === method);
+        });
+        renderPaymentMethodDetails();
+      }
+
+      function updateCheckoutModalHeaderAndDetails() {
+        var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
+        var total = pkg.base + pkg.bonus;
+        document.getElementById("modalPkgTitle").textContent = "Box #" + pkg.id + " — " + formatNum(total) + " Tokens";
+        document.getElementById("modalPkgBreakdown").textContent = formatNum(pkg.base) + " Base + " + formatNum(pkg.bonus) + " Extra Bonus Tokens";
+        document.getElementById("modalLocalPrice").textContent = formatSelectedCountryPrice(pkg.usd);
+        document.getElementById("modalAccountTag").textContent = "UID: " + (currentUser ? currentUser.uid : "-");
+        selectPayMethod(selectedPayMethod);
+      }
+
+      function drawQrIntoCanvas(canvasId, textData) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas || typeof window.qrcode !== "function") return;
+        var qr = window.qrcode(0, "M");
+        qr.addData(textData);
+        qr.make();
+        var count = qr.getModuleCount(), size = 190, margin = 8;
+        canvas.width = size; canvas.height = size;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
+        var cell = (size - margin * 2) / count;
+        ctx.fillStyle = "#0f172a";
+        for (var r = 0; r < count; r++) {
+          for (var c = 0; c < count; c++) {
+            if (qr.isDark(r, c)) {
+              ctx.fillRect(Math.floor(margin + c * cell), Math.floor(margin + r * cell), Math.ceil(cell), Math.ceil(cell));
+            }
+          }
+        }
+      }
+
+      function renderPaymentMethodDetails() {
+        var box = document.getElementById("paymentMethodDetails");
+        var manualFields = document.getElementById("manualTxFields");
+        var txInput = document.getElementById("orderTxIdInput");
+        var submitBtn = document.getElementById("submitOrderBtn");
+
+        var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
+        var localAmt = formatSelectedCountryPrice(pkg.usd);
+
+        if (selectedPayMethod === "balance") {
+          manualFields.style.display = "none";
+          txInput.required = false;
+
+          var userBal = roundUsd(currentUser ? currentUser.balance : 0);
+          var hasEnough = userBal >= pkg.usd;
+          submitBtn.disabled = !hasEnough;
+          submitBtn.innerHTML = hasEnough
+            ? '<i class="fa-solid fa-bolt"></i> Pay Instantly from Account Balance'
+            : '<i class="fa-solid fa-ban"></i> Insufficient Account Balance';
+
+          box.innerHTML =
+            '<div style="font-size:13.5px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-wallet gold-icon"></i> Pay Using Your Account Balance</div>' +
+            '<div style="font-size:12.5px; line-height:1.5; color:var(--text-muted);">' +
+              'Your Account Balance: <strong style="color:var(--text);">$' + userBal.toFixed(2) + '</strong><br>' +
+              'Package Price (' + escapeHtml(savedRegionState.country) + '): <strong style="color:var(--primary);">' + escapeHtml(localAmt) + '</strong><br>' +
+              'You Will Receive: <strong style="color:#10b981;">+' + formatNum(pkg.base + pkg.bonus) + ' Tokens</strong> (Exact)' +
+            '</div>' +
+            (!hasEnough
+              ? '<div class="err-box show" style="margin-top:8px; margin-bottom:0;">Insufficient Account Balance! Please earn more Balance in OSSIAN PRO or choose another payment method below.</div>'
+              : '<div style="margin-top:8px; font-size:11.5px; font-weight:700; color:#10b981;"><i class="fa-solid fa-circle-check"></i> Balance sufficient! Tokens will be added immediately to both websites.</div>');
+          return;
+        }
+
+        manualFields.style.display = "block";
+        txInput.required = true;
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Confirm &amp; Submit Order';
+
+        if (selectedPayMethod === "binance") {
+          var uidDisplay = adminBinanceUid || "Check Admin Binance Pay UID";
+          box.innerHTML =
+            '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-brands fa-bitcoin gold-icon"></i> Binance Pay (by UID)</div>' +
+            '<p style="font-size:12px; color:var(--text-muted); line-height:1.45;">Pay <strong>' + escapeHtml(localAmt) + '</strong> via <strong>Binance Pay → Send by UID</strong>, then enter your Binance Pay Order ID below.</p>' +
+            '<div class="addr-copy-row">' +
+              '<span class="addr-text">' + escapeHtml(uidDisplay) + '</span>' +
+              (adminBinanceUid ? '<button type="button" class="btn btn-primary btn-sm" onclick="copyText(\'' + escapeHtml(adminBinanceUid) + '\', \'Binance UID copied!\')"><i class="fa-solid fa-copy"></i> Copy</button>' : '') +
+            '</div>';
+        } else if (selectedPayMethod === "trc20") {
+          box.innerHTML =
+            '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-coins gold-icon"></i> TRC-20 USDT Deposit Address</div>' +
+            '<p style="font-size:12px; color:#ef4444; font-weight:700; margin-bottom:6px;">Network: TRON (TRC-20) Only — Amount: ' + escapeHtml(localAmt) + '</p>' +
+            '<div class="addr-copy-row">' +
+              '<span class="addr-text">' + TRC20_ADDRESS + '</span>' +
+              '<button type="button" class="btn btn-primary btn-sm" onclick="copyText(\'' + TRC20_ADDRESS + '\', \'TRC-20 address copied!\')"><i class="fa-solid fa-copy"></i> Copy</button>' +
+            '</div>' +
+            '<div style="text-align:center; margin-top:10px;">' +
+              '<div class="ep-qr-frame"><canvas id="trc20QrCanvas" width="190" height="190"></canvas></div>' +
+            '</div>';
+          drawQrIntoCanvas("trc20QrCanvas", TRC20_ADDRESS);
+        } else if (selectedPayMethod === "ep_iban") {
+          box.innerHTML =
+            '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-building-columns gold-icon"></i> Easypaisa IBAN Pay</div>' +
+            '<p style="font-size:12px; color:var(--text-muted); line-height:1.45;">Account Title: <strong>' + EASYPAISA_NAME + '</strong><br>Bank: <strong>Easypaisa / Telenor Microfinance Bank</strong><br>Amount: <strong>' + escapeHtml(localAmt) + '</strong></p>' +
+            '<div class="addr-copy-row">' +
+              '<span class="addr-text">' + EASYPAISA_IBAN + '</span>' +
+              '<button type="button" class="btn btn-primary btn-sm" onclick="copyText(\'' + EASYPAISA_IBAN + '\', \'Easypaisa IBAN copied!\')"><i class="fa-solid fa-copy"></i> Copy</button>' +
+            '</div>';
+        } else {
+          var qrImgSrc = adminEasypaisaQrUrl || "./easypaisa-qr.png";
+          box.innerHTML =
+            '<div style="font-size:13px; font-weight:800; margin-bottom:4px;"><i class="fa-solid fa-qrcode gold-icon"></i> Easypaisa QR Pay</div>' +
+            '<p style="font-size:12px; color:var(--text-muted);">Scan in Easypaisa App &amp; pay <strong>' + escapeHtml(localAmt) + '</strong></p>' +
+            '<div class="ep-qr-card">' +
+              '<div class="ep-logo-text"><span>e</span>asypaisa</div>' +
+              '<div class="ep-qr-sub">Scan this QR code to send money to ' + EASYPAISA_NAME + '\'s easypaisa account</div>' +
+              '<div class="ep-qr-frame" id="epQrContainer">' +
+                '<img src="' + escapeHtml(qrImgSrc) + '" alt="Easypaisa QR" onerror="window.renderFallbackEasypaisaQr()" />' +
+              '</div>' +
+              '<div class="ep-acc-name">' + EASYPAISA_NAME + '</div>' +
+              '<div class="ep-acc-msisdn">MSISDN: ' + EASYPAISA_MSISDN + '</div>' +
+              '<div style="font-size:11px; color:#64748b; margin-top:6px;">IBAN: ' + EASYPAISA_IBAN + '</div>' +
+            '</div>';
+        }
+      }
+
+      window.renderFallbackEasypaisaQr = function () {
+        var el = document.getElementById("epQrContainer");
+        if (!el) return;
+        el.innerHTML = '<canvas id="epFallbackCanvas" width="190" height="190"></canvas>';
+        drawQrIntoCanvas("epFallbackCanvas", EASYPAISA_IBAN);
+      };
+
+      function getMethodLabel(pm) {
+        if (pm === "balance") return "Account Balance";
+        if (pm === "binance") return "Binance Pay (UID)";
+        if (pm === "trc20") return "TRC-20 USDT";
+        if (pm === "ep_iban") return "Easypaisa IBAN";
+        return "Easypaisa QR Pay";
+      }
+
+      document.getElementById("orderSubmitForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (!currentUser || !savedRegionState.saved) { showToast("Sign in & save country first!"); return; }
+
+        var btn = document.getElementById("submitOrderBtn");
+        btn.disabled = true;
+
+        var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
+        var info = getSelectedCountryInfo();
+        var now = Date.now();
+        var exactTotalTokens = pkg.base + pkg.bonus;
+
+        if (selectedPayMethod === "balance") {
+          var freshUser = await fetchUserByUid(currentUser.uid);
+          if (!freshUser) {
+            btn.disabled = false;
+            showToast("Internet error! Could not verify Account Balance.");
+            return;
+          }
+          if (freshUser.balance < pkg.usd) {
+            currentUser = freshUser;
+            safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+            renderUserSummaryAndAccount();
+            renderPaymentMethodDetails();
+            showToast("Insufficient Account Balance!");
+            return;
+          }
+
+          var newBal = roundUsd(freshUser.balance - pkg.usd);
+          var exactNewTokens = Math.max(0, Math.floor(freshUser.tokens || 0)) + exactTotalTokens;
+          var balOrdId = "ord_bal_" + now + "_" + Math.floor(1000 + Math.random() * 9000);
+
+          creditedOrderIds[balOrdId] = true;
+          safeSet("ossian_credited_orders_v1", JSON.stringify(creditedOrderIds));
+
+          var patchUserRes = await fetch(USERS_URL + "/" + encodeURIComponent(currentUser.uid) +
+            "?updateMask.fieldPaths=balance&updateMask.fieldPaths=tokens&key=" + encodeURIComponent(API_KEY), {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fields: {
+                balance: { doubleValue: newBal },
+                tokens: { integerValue: String(exactNewTokens) }
+              }
+            })
+          });
+
+          if (!patchUserRes.ok) {
+            btn.disabled = false;
+            showToast("Payment failed! Check connection.");
+            return;
+          }
+
+          freshUser.balance = newBal;
+          freshUser.tokens = exactNewTokens;
+          currentUser = freshUser;
+          safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+
+          var balOrder = {
+            id: balOrdId,
+            uid: currentUser.uid,
+            name: currentUser.name,
+            email: currentUser.email,
+            boxId: pkg.id,
+            baseTokens: pkg.base,
+            bonusTokens: pkg.bonus,
+            totalTokens: exactTotalTokens,
+            usdAmount: pkg.usd,
+            localAmountText: formatSelectedCountryPrice(pkg.usd),
+            country: info.country,
+            region: info.region,
+            currencyCode: info.code,
+            paymentMethod: "Account Balance",
+            txId: "BAL-" + now,
+            sender: currentUser.uid,
+            status: "approved",
+            tokensCredited: true,
+            createdAt: now
+          };
+
+          ordersList.unshift(balOrder);
+          safeSet("ossian_tok_orders_v1", JSON.stringify(ordersList));
+
+          await saveOrderToCloud(balOrder);
+          btn.disabled = false;
+          closeModal("checkoutModal");
+          renderUserSummaryAndAccount();
+          renderHistoryList();
+          switchSection("history");
+          showToast("Purchased! Exact +" + formatNum(exactTotalTokens) + " Tokens added.");
+          return;
+        }
+
+        var txId = document.getElementById("orderTxIdInput").value.trim();
+        var sender = document.getElementById("orderSenderInput").value.trim();
+        if (!txId) {
+          btn.disabled = false;
+          showToast("Please enter Transaction ID!");
+          return;
+        }
+
+        var orderObj = {
+          id: "ord_" + now + "_" + Math.floor(1000 + Math.random() * 9000),
+          uid: currentUser.uid,
+          name: currentUser.name,
+          email: currentUser.email,
+          boxId: pkg.id,
+          baseTokens: pkg.base,
+          bonusTokens: pkg.bonus,
+          totalTokens: exactTotalTokens,
+          usdAmount: pkg.usd,
+          localAmountText: formatSelectedCountryPrice(pkg.usd),
+          country: info.country,
+          region: info.region,
+          currencyCode: info.code,
+          paymentMethod: getMethodLabel(selectedPayMethod),
+          txId: txId,
+          sender: sender,
+          status: "pending",
+          tokensCredited: false,
+          createdAt: now
+        };
+
+        ordersList.unshift(orderObj);
+        safeSet("ossian_tok_orders_v1", JSON.stringify(ordersList));
+        await saveOrderToCloud(orderObj);
+
+        btn.disabled = false;
+        closeModal("checkoutModal");
+        renderHistoryList();
+        switchSection("history");
+        showToast("Order submitted! Exact +" + formatNum(exactTotalTokens) + " Tokens will be added once verified.");
+      });
+
+      async function saveOrderToCloud(orderObj) {
+        try {
+          await fetch(ORDERS_URL + "?documentId=" + encodeURIComponent(orderObj.id) + "&key=" + encodeURIComponent(API_KEY), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fields: {
+                orderId: { stringValue: orderObj.id },
+                uid: { stringValue: orderObj.uid },
+                name: { stringValue: orderObj.name },
+                email: { stringValue: orderObj.email },
+                boxId: { integerValue: String(orderObj.boxId) },
+                baseTokens: { integerValue: String(orderObj.baseTokens) },
+                bonusTokens: { integerValue: String(orderObj.bonusTokens) },
+                totalTokens: { integerValue: String(orderObj.totalTokens) },
+                usdAmount: { doubleValue: orderObj.usdAmount },
+                localAmountText: { stringValue: orderObj.localAmountText },
+                country: { stringValue: orderObj.country },
+                region: { stringValue: orderObj.region },
+                currencyCode: { stringValue: orderObj.currencyCode },
+                paymentMethod: { stringValue: orderObj.paymentMethod },
+                txId: { stringValue: orderObj.txId },
+                sender: { stringValue: orderObj.sender || "" },
+                status: { stringValue: orderObj.status },
+                tokensCredited: { booleanValue: Boolean(orderObj.tokensCredited) },
+                createdAt: { integerValue: String(orderObj.createdAt) }
+              }
+            })
+          });
+        } catch (err) {}
+      }
+
+      /* =======================================================
+         FIREBASE USER SYNC, LOGIN & IDEMPOTENT TOKEN CREDIT
+         ======================================================= */
+      function parseFirestoreUser(docObj) {
+        var f = docObj.fields || {};
+        var balVal = f.balance ? Number(f.balance.doubleValue || f.balance.integerValue || 0) : 0;
+        var tokVal = f.tokens ? Number(f.tokens.integerValue || f.tokens.doubleValue || 0) : 0;
+        return {
+          uid: (f.uid && f.uid.stringValue) || (docObj.name || "").split("/").pop(),
+          name: (f.name && f.name.stringValue) || "",
+          email: String((f.email && f.email.stringValue) || "").trim().toLowerCase(),
+          passwordHash: (f.passwordHash && f.passwordHash.stringValue) || "",
+          passwordSha256: (f.passwordSha256 && f.passwordSha256.stringValue) || "",
+          myInviteCode: (f.myInviteCode && f.myInviteCode.stringValue) || "",
+          referredBy: (f.referredBy && f.referredBy.stringValue) || "",
+          qrToken: (f.qrToken && f.qrToken.stringValue) || "",
+          tokGenerated: f.tokGenerated && f.tokGenerated.booleanValue === true,
+          tokQrId: (f.tokQrId && f.tokQrId.stringValue) || "",
+          balance: isNaN(balVal) ? 0 : roundUsd(balVal),
+          tokens: isNaN(tokVal) ? 0 : Math.max(0, Math.floor(tokVal)),
+          buyRegion: (f.buyRegion && f.buyRegion.stringValue) || "",
+          buyCountry: (f.buyCountry && f.buyCountry.stringValue) || "",
+          regionSavedAt: Number((f.regionSavedAt && (f.regionSavedAt.integerValue || f.regionSavedAt.doubleValue)) || 0),
+          isMainAccount: f.isMainAccount && f.isMainAccount.booleanValue === true,
+          suspended: f.suspended && f.suspended.booleanValue === true,
+          createdAt: Number((f.createdAt && (f.createdAt.integerValue || f.createdAt.doubleValue)) || 0)
+        };
+      }
+
+      async function fetchUserByUid(uid) {
+        try {
+          var res = await fetch(USERS_URL + "/" + encodeURIComponent(uid) + "?key=" + encodeURIComponent(API_KEY), { cache: "no-store" });
+          if (!res.ok) return null;
+          var data = await res.json();
+          return data && data.fields ? parseFirestoreUser(data) : null;
+        } catch (e) { return null; }
+      }
+
+      async function fetchAllCloudUsers() {
+        try {
+          var res = await fetch(USERS_URL + "?pageSize=300&key=" + encodeURIComponent(API_KEY), { cache: "no-store" });
+          if (!res.ok) return [];
+          var data = await res.json();
+          return (data && Array.isArray(data.documents)) ? data.documents.map(parseFirestoreUser) : [];
+        } catch (e) { return []; }
+      }
+
+      async function fetchSiteConfigFromCloud() {
+        var urls = [SETTINGS_URL, CONFIG_URL, BRANDING_URL];
+        for (var i = 0; i < urls.length; i++) {
+          try {
+            var res = await fetch(urls[i] + "?pageSize=20&key=" + encodeURIComponent(API_KEY), { cache: "no-store" });
+            if (!res.ok) continue;
+            var data = await res.json();
+            if (!data || !Array.isArray(data.documents)) continue;
+            data.documents.forEach(function (doc) {
+              var f = doc.fields || {};
+              var iconField = f.websiteIcon || f.siteIcon || f.logoUrl || f.iconUrl || f.logo || f.icon;
+              if (iconField && iconField.stringValue) {
+                var ic = iconField.stringValue.trim();
+                var logoBox = document.getElementById("headerBrandLogo");
+                if (/^https?:\/\//i.test(ic) || /^data:image\//i.test(ic)) {
+                  logoBox.innerHTML = '<img src="' + escapeHtml(ic) + '" alt="OSSIAN" />';
+                  document.getElementById("siteFaviconLink").href = ic;
+                }
+              }
+              var bUid = f.binanceUid || f.binancePayUid;
+              if (bUid && bUid.stringValue) adminBinanceUid = bUid.stringValue.trim();
+              var epQr = f.easypaisaQrUrl || f.easypaisaQr;
+              if (epQr && epQr.stringValue) adminEasypaisaQrUrl = epQr.stringValue.trim();
+            });
+          } catch (e) {}
+        }
+      }
+
+      async function fetchUserOrders(showMsg) {
+        if (!currentUser || isCreditingOrders) { renderHistoryList(); return; }
+        isCreditingOrders = true;
+        try {
+          var res = await fetch(ORDERS_URL + "?pageSize=200&key=" + encodeURIComponent(API_KEY), { cache: "no-store" });
+          if (res.ok) {
+            var data = await res.json();
+            var cloudOrders = (data && Array.isArray(data.documents)) ? data.documents.map(function (doc) {
+              var f = doc.fields || {};
+              return {
+                id: (f.orderId && f.orderId.stringValue) || (doc.name || "").split("/").pop(),
+                uid: (f.uid && f.uid.stringValue) || "",
+                name: (f.name && f.name.stringValue) || "",
+                email: (f.email && f.email.stringValue) || "",
+                boxId: Number((f.boxId && f.boxId.integerValue) || 1),
+                baseTokens: Number((f.baseTokens && f.baseTokens.integerValue) || 0),
+                bonusTokens: Number((f.bonusTokens && f.bonusTokens.integerValue) || 0),
+                totalTokens: Number((f.totalTokens && f.totalTokens.integerValue) || 0),
+                usdAmount: Number((f.usdAmount && (f.usdAmount.doubleValue || f.usdAmount.integerValue)) || 0),
+                localAmountText: (f.localAmountText && f.localAmountText.stringValue) || "",
+                country: (f.country && f.country.stringValue) || "",
+                paymentMethod: (f.paymentMethod && f.paymentMethod.stringValue) || "",
+                txId: (f.txId && f.txId.stringValue) || "",
+                status: String((f.status && f.status.stringValue) || "pending").toLowerCase(),
+                tokensCredited: f.tokensCredited && f.tokensCredited.booleanValue === true,
+                createdAt: Number((f.createdAt && f.createdAt.integerValue) || 0)
+              };
+            }).filter(function (o) { return o.uid === currentUser.uid; }) : [];
+
+            for (var i = 0; i < cloudOrders.length; i++) {
+              var ord = cloudOrders[i];
+              if (ord.status === "approved" && !ord.tokensCredited && !creditedOrderIds[ord.id] && ord.totalTokens > 0) {
+                var ordCheckRes = await fetch(ORDERS_URL + "/" + encodeURIComponent(ord.id) + "?key=" + encodeURIComponent(API_KEY), { cache: "no-store" });
+                var ordCheckData = ordCheckRes.ok ? await ordCheckRes.json() : null;
+                var alreadyCreditedInCloud = ordCheckData && ordCheckData.fields && ordCheckData.fields.tokensCredited && ordCheckData.fields.tokensCredited.booleanValue === true;
+                if (alreadyCreditedInCloud) {
+                  creditedOrderIds[ord.id] = true;
+                  ord.tokensCredited = true;
+                  continue;
+                }
+
+                var freshUser = await fetchUserByUid(currentUser.uid);
+                if (!freshUser) continue;
+
+                creditedOrderIds[ord.id] = true;
+                safeSet("ossian_credited_orders_v1", JSON.stringify(creditedOrderIds));
+
+                var markRes = await fetch(ORDERS_URL + "/" + encodeURIComponent(ord.id) + "?updateMask.fieldPaths=tokensCredited&key=" + encodeURIComponent(API_KEY), {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ fields: { tokensCredited: { booleanValue: true } } })
+                });
+                if (!markRes.ok) continue;
+
+                var exactNewTokens = Math.max(0, Math.floor(Number(freshUser.tokens || 0))) + Number(ord.totalTokens);
+                await fetch(USERS_URL + "/" + encodeURIComponent(currentUser.uid) + "?updateMask.fieldPaths=tokens&key=" + encodeURIComponent(API_KEY), {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ fields: { tokens: { integerValue: String(exactNewTokens) } } })
+                });
+
+                freshUser.tokens = exactNewTokens;
+                currentUser = freshUser;
+                safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+                ord.tokensCredited = true;
+                showToast("Approved! Exact +" + formatNum(ord.totalTokens) + " Tokens added.");
+              } else if (ord.tokensCredited) {
+                creditedOrderIds[ord.id] = true;
+              }
+            }
+            safeSet("ossian_credited_orders_v1", JSON.stringify(creditedOrderIds));
+            cloudOrders.sort(function (a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
+            ordersList = cloudOrders;
+            safeSet("ossian_tok_orders_v1", JSON.stringify(ordersList));
+          }
+          if (showMsg) showToast("Purchase history refreshed!");
+        } catch (e) {}
+        isCreditingOrders = false;
+        renderHistoryList();
+        renderUserSummaryAndAccount();
+      }
+
+      function formatDateTimeFull(ts) {
+        if (!ts) return "-";
+        try {
+          var d = new Date(ts);
+          return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) +
+            " • " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
+        } catch (e) { return String(ts); }
+      }
+
+      function renderHistoryList() {
+        var el = document.getElementById("historyListBody");
+        if (!currentUser) {
+          el.innerHTML = '<div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:13px;">Please Sign In to view your token purchase history.</div>';
+          return;
+        }
+        var myOrders = ordersList.filter(function (o) { return o.uid === currentUser.uid; });
+        if (!myOrders.length) {
+          el.innerHTML = '<div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:13px;">No token purchases yet. Buy your first package from the Buy Tokens tab!</div>';
+          return;
+        }
+        el.innerHTML = myOrders.map(function (o) {
+          var stClass = o.status === "approved" ? "approved" : (o.status === "rejected" ? "rejected" : "");
+          var stText = o.status === "approved" ? "Approved" : (o.status === "rejected" ? "Rejected" : "Pending Verification");
+          return '<div class="history-card">' +
+            '<div class="history-head">' +
+              '<span class="pkg-num">Box #' + o.boxId + ' • ' + escapeHtml(o.paymentMethod) + '</span>' +
+              '<span class="status-pill ' + stClass + '">' + stText + '</span>' +
+            '</div>' +
+            '<div style="font-size:15px; font-weight:800; margin-bottom:4px;">+' + formatNum(o.totalTokens) + ' Tokens <span style="font-size:12px; color:var(--text-muted); font-weight:600;">(' + formatNum(o.baseTokens) + ' + ' + formatNum(o.bonusTokens) + ' Bonus)</span></div>' +
+            '<div style="font-size:12.5px; color:var(--primary); font-weight:700;">Paid: ' + escapeHtml(o.localAmountText || "-") + '</div>' +
+            '<div style="font-size:11.5px; color:var(--text-muted); margin-top:4px;"><i class="fa-solid fa-clock"></i> ' + escapeHtml(formatDateTimeFull(o.createdAt)) + '</div>' +
+            '<div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">TX ID: <strong>' + escapeHtml(o.txId) + '</strong></div>' +
+          '</div>';
+        }).join("");
+      }
+
+      function renderUserSummaryAndAccount() {
+        var authBtnWrap = document.getElementById("heroAuthAction");
+        var accBody = document.getElementById("accountDetailsBody");
+
+        if (!currentUser) {
+          document.getElementById("heroUserName").textContent = "Guest (Sign In)";
+          document.getElementById("heroUserTokens").textContent = "0";
+          document.getElementById("heroUserBalance").textContent = "$0.00";
+          authBtnWrap.innerHTML = '<button class="btn btn-primary btn-sm" onclick="openLoginModal()"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>';
+          accBody.innerHTML =
+            '<div style="text-align:center; padding:22px 10px;">' +
+              '<i class="fa-solid fa-user-lock gold-icon" style="font-size:34px; margin-bottom:10px;"></i>' +
+              '<p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">Sign in with your OSSIAN PRO account to view all account details and buy tokens.</p>' +
+              '<button class="btn btn-primary" style="max-width:260px;" onclick="openLoginModal()"><i class="fa-solid fa-right-to-bracket"></i> Sign In to Account</button>' +
+            '</div>';
+          return;
+        }
+
+        document.getElementById("heroUserName").textContent = currentUser.name || currentUser.uid;
+        document.getElementById("heroUserTokens").textContent = formatNum(currentUser.tokens || 0);
+        document.getElementById("heroUserBalance").textContent = "$" + (Number(currentUser.balance) || 0).toFixed(2);
+        authBtnWrap.innerHTML = '<button class="btn btn-danger btn-sm" onclick="signOutBuyer()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>';
+
+        var statusHtml = currentUser.suspended
+          ? '<span style="color:#ef4444;">Suspended (Duplicate Account)</span>'
+          : '<span style="color:#10b981;">Main Account • Active</span>';
+
+        accBody.innerHTML =
+          '<div style="font-size:15px; font-weight:800; margin-bottom:12px;"><i class="fa-solid fa-id-card gold-icon"></i> Complete Account Details (Synced with OSSIAN PRO)</div>' +
+          '<div class="kv-grid">' +
+            '<div class="kv-item"><div><div class="kv-label">Full Name</div><div class="kv-val">' + escapeHtml(currentUser.name) + '</div></div><i class="fa-solid fa-user gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Email Address</div><div class="kv-val">' + escapeHtml(currentUser.email) + '</div></div><i class="fa-solid fa-envelope gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Permanent UID</div><div class="kv-val">' + escapeHtml(currentUser.uid) + '</div></div><button class="btn btn-secondary btn-sm" onclick="copyText(\'' + escapeHtml(currentUser.uid) + '\', \'UID copied!\')"><i class="fa-solid fa-copy gold-icon"></i></button></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Remaining Tokens</div><div class="kv-val">' + formatNum(currentUser.tokens || 0) + ' Tokens</div></div><i class="fa-solid fa-coins gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Dollar Balance</div><div class="kv-val">$' + (Number(currentUser.balance) || 0).toFixed(2) + '</div></div><i class="fa-solid fa-wallet gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">5-Digit Invite Code</div><div class="kv-val">' + escapeHtml(currentUser.myInviteCode || "-") + '</div></div><i class="fa-solid fa-link gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Referred By</div><div class="kv-val">' + escapeHtml(currentUser.referredBy || "None") + '</div></div><i class="fa-solid fa-user-group gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Account Status</div><div class="kv-val">' + statusHtml + '</div></div><i class="fa-solid fa-shield-halved gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">OSSIAN TOK Status</div><div class="kv-val">' + (currentUser.tokGenerated ? "Active (" + escapeHtml(currentUser.tokQrId || "Saved") + ")" : "Not Generated Yet") + '</div></div><i class="fa-solid fa-key gold-icon"></i></div>' +
+            '<div class="kv-item"><div><div class="kv-label">Saved Region &amp; Country</div><div class="kv-val">' + (savedRegionState.saved ? escapeHtml(savedRegionState.country + " (" + getRemainingLockDaysText() + ")") : "Not Saved") + '</div></div><i class="fa-solid fa-earth-asia gold-icon"></i></div>' +
+            '<div class="kv-item" style="grid-column: 1 / -1;"><div><div class="kv-label">Account Created</div><div class="kv-val">' + escapeHtml(formatDateTimeFull(currentUser.createdAt)) + '</div></div><i class="fa-solid fa-calendar gold-icon"></i></div>' +
+          '</div>';
+      }
+
+      async function completeVerifiedLogin(matchedUser) {
+        var errBox = document.getElementById("loginSecurityErrBox");
+        if (matchedUser.suspended) {
+          errBox.textContent = "This account is Suspended in OSSIAN PRO.";
+          errBox.classList.add("show");
+          showToast("Suspended account cannot sign in!");
+          return false;
+        }
+
+        errBox.classList.remove("show");
+        currentUser = matchedUser;
+        safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+
+        if (currentUser.buyCountry && currentUser.regionSavedAt) {
+          savedRegionState = {
+            saved: true,
+            region: currentUser.buyRegion || "ALL",
+            country: currentUser.buyCountry,
+            savedAt: Number(currentUser.regionSavedAt)
+          };
+          safeSet(getRegionStorageKey(), JSON.stringify(savedRegionState));
+        } else if (savedRegionState.saved && savedRegionState.country) {
+          await syncRegionLockToCloud(currentUser.uid, savedRegionState.region, savedRegionState.country, savedRegionState.savedAt);
+        }
+
+        closeModal("loginModal");
+        applyRegionAndPriceUI();
+        renderUserSummaryAndAccount();
+        fetchUserOrders(false);
+        showToast("Signed In as " + currentUser.name + "!");
+        return true;
+      }
+
+      document.getElementById("buyerLoginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var errBox = document.getElementById("loginSecurityErrBox");
+        errBox.classList.remove("show");
+
+        var email = document.getElementById("buyerEmailInput").value.trim().toLowerCase();
+        var pass = document.getElementById("buyerPasswordInput").value;
+        var btn = document.getElementById("buyerLoginBtn");
+        btn.disabled = true;
+
+        var passSha = await sha256Salted(pass, email);
+        var passLegacy = hashSecret(pass);
+        var users = await fetchAllCloudUsers();
+        var matched = users.find(function (u) {
+          return u.email === email && ((u.passwordSha256 && u.passwordSha256 === passSha) || (u.passwordHash && u.passwordHash === passLegacy));
+        });
+
+        btn.disabled = false;
+        if (!matched) { showToast("Wrong email or password!"); return; }
+
+        var ok = await completeVerifiedLogin(matched);
+        if (ok) document.getElementById("buyerLoginForm").reset();
+      });
+
+      function triggerBuyerQrUpload() {
+        var inp = document.getElementById("buyerQrLoginFile");
+        inp.value = "";
+        inp.click();
+      }
+
+      document.getElementById("buyerQrLoginFile").addEventListener("change", function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file || typeof window.jsQR !== "function") return;
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          var img = new Image();
+          img.onload = async function () {
+            var c = document.createElement("canvas");
+            c.width = img.width; c.height = img.height;
+            var ctx = c.getContext("2d");
+            ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, c.width, c.height);
+            ctx.drawImage(img, 0, 0);
+            var code = window.jsQR(ctx.getImageData(0, 0, c.width, c.height).data, c.width, c.height, { inversionAttempts: "attemptBoth" });
+            if (!code || !code.data) { showToast("Invalid QR code!"); return; }
+            var payload = unsealQrPayload(code.data);
+            if (!payload || !payload.u || !payload.t) { showToast("Invalid OSSIAN PRO Login QR!"); return; }
+            var cloudUser = await fetchUserByUid(payload.u);
+            if (!cloudUser || cloudUser.qrToken !== payload.t) { showToast("Expired or invalid Login QR!"); return; }
+            await completeVerifiedLogin(cloudUser);
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      function signOutBuyer() {
+        currentUser = null;
+        try { localStorage.removeItem("ossian_current_user_v1"); } catch (e) {}
+        loadSavedRegionState();
+        applyRegionAndPriceUI();
+        renderUserSummaryAndAccount();
+        renderHistoryList();
+        showToast("Signed out!");
+      }
+
+      function switchSection(name) {
+        ["buy", "history", "account"].forEach(function (s) {
+          document.getElementById("sec-" + s).classList.toggle("active", s === name);
+          document.getElementById("tabBtn" + s.charAt(0).toUpperCase() + s.slice(1)).classList.toggle("active", s === name);
+        });
+      }
+
+      function openLoginModal() {
+        document.getElementById("loginSecurityErrBox").classList.remove("show");
+        document.getElementById("loginModal").classList.add("open");
+      }
+      function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+      function closeModalOnOverlay(e, id) { if (e.target.id === id) closeModal(id); }
+
+      function copyText(val, msg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(val).then(function () { showToast(msg || "Copied!"); });
+        }
+      }
+
+      function toggleTheme() {
+        var dark = !document.body.classList.contains("dark");
+        document.body.classList.toggle("dark", dark);
+        safeSet("ossian_web_theme_v1", dark ? "dark" : "light");
+        document.getElementById("themeToggleBtn").innerHTML = dark
+          ? '<i class="fa-solid fa-sun gold-icon"></i>' : '<i class="fa-solid fa-moon gold-icon"></i>';
+      }
+
+      var toastTimer;
+      function showToast(msg) {
+        var t = document.getElementById("toast");
+        t.querySelector("span").textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2800);
+      }
+
+      async function refreshAllData(showMsg) {
+        await fetchSiteConfigFromCloud();
+        if (currentUser && currentUser.uid) {
+          var fresh = await fetchUserByUid(currentUser.uid);
+          if (fresh) {
+            if (fresh.suspended) {
+              signOutBuyer();
+              showToast("Account is Suspended in OSSIAN PRO.");
+              return;
+            }
+            currentUser = fresh;
+            safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
+            loadSavedRegionState();
+            applyRegionAndPriceUI();
+          }
+          await fetchUserOrders(false);
+        }
+        renderUserSummaryAndAccount();
+        if (showMsg) showToast("Synced with OSSIAN Firebase!");
+      }
+
+      window.onRegionChange = onRegionChange;
+      window.saveRegionAndCountry = saveRegionAndCountry;
+      window.switchSection = switchSection;
+      window.openCheckoutModal = openCheckoutModal;
+      window.selectPayMethod = selectPayMethod;
+      window.openLoginModal = openLoginModal;
+      window.signOutBuyer = signOutBuyer;
+      window.triggerBuyerQrUpload = triggerBuyerQrUpload;
+      window.closeModal = closeModal;
+      window.closeModalOnOverlay = closeModalOnOverlay;
+      window.copyText = copyText;
+      window.toggleTheme = toggleTheme;
+      window.refreshAllData = refreshAllData;
+      window.fetchUserOrders = fetchUserOrders;
+
+      if (safeGet("ossian_web_theme_v1", "light") === "dark") {
+        document.body.classList.add("dark");
+        document.getElementById("themeToggleBtn").innerHTML = '<i class="fa-solid fa-sun gold-icon"></i>';
+      }
+
+      try { currentUser = JSON.parse(safeGet("ossian_current_user_v1", "null")); } catch (e) { currentUser = null; }
+      try { ordersList = JSON.parse(safeGet("ossian_tok_orders_v1", "[]")) || []; } catch (e) { ordersList = []; }
+      try { creditedOrderIds = JSON.parse(safeGet("ossian_credited_orders_v1", "{}")) || {}; } catch (e) { creditedOrderIds = {}; }
+
+      loadSavedRegionState();
+      applyRegionAndPriceUI();
+      renderUserSummaryAndAccount();
+      renderHistoryList();
+      fetchLiveExchangeRates();
+      refreshAllData(false);
+
+      window.addEventListener("focus", function () {
+        if (currentUser) refreshAllData(false);
+      });
+    })();
+  </script>
+</body>
+</html>
