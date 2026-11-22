@@ -258,7 +258,7 @@
       padding: 14px; margin-bottom: 14px;
     }
     .addr-copy-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
       background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
       padding: 9px 11px; margin-top: 6px;
     }
@@ -513,16 +513,21 @@
             </div>
             <div class="guide-sub-label">How to Transfer:</div>
             <ol class="guide-steps">
-              <li>Select <strong>3. TRC-20 USDT Pay</strong> and copy the wallet address (<code>TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</code>) or scan the QR photo.</li>
+              <li>Select <strong>3. TRC-20 USDT Pay</strong> and copy the wallet address (<code>TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</code>) or scan/download the QR photo.</li>
               <li>Open your exchange/crypto wallet &rarr; Withdraw/Send <strong>USDT</strong> &rarr; Select network <strong>TRX — Tron (TRC20)</strong>.</li>
               <li>Send the exact USDT amount (make sure network withdrawal fees are covered separately).</li>
               <li>In checkout, paste <strong>only</strong> the <strong>TRC-20 Transaction Hash (TxID)</strong> and your <strong>Sender TRC-20 Wallet Address</strong>.</li>
             </ol>
             <div class="addr-copy-row" style="margin-top:8px;">
               <span class="addr-text">TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</span>
-              <button type="button" class="btn btn-primary btn-sm" onclick="copyText('TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ', 'TRC-20 address copied!')">
-                <i class="fa-solid fa-copy"></i> Copy
-              </button>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="copyText('TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ', 'TRC-20 address copied!')">
+                  <i class="fa-solid fa-copy"></i> Copy
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadDepositQr('trc20')">
+                  <i class="fa-solid fa-download gold-icon"></i> Download QR
+                </button>
+              </div>
             </div>
             <div class="guide-rules-box">
               <div class="guide-sub-label">Rules:</div>
@@ -565,11 +570,16 @@
             </div>
             <div class="guide-sub-label">How to Transfer:</div>
             <ol class="guide-steps">
-              <li>Select <strong>5. Easypaisa QR Pay</strong> in the checkout modal to display the official Easypaisa QR card.</li>
-              <li>Open your <strong>Easypaisa App</strong> &rarr; Tap <strong>Scan QR</strong> &rarr; Scan the displayed QR code.</li>
+              <li>Select <strong>5. Easypaisa QR Pay</strong> in the checkout modal to display or download the official Easypaisa QR card.</li>
+              <li>Open your <strong>Easypaisa App</strong> &rarr; Tap <strong>Scan QR</strong> &rarr; Scan the displayed or downloaded QR code.</li>
               <li>Verify recipient details show <strong>MUHAMMAD ASLAM</strong> (MSISDN ending in <strong>4110</strong>) and send the exact PKR amount.</li>
               <li>Paste your <strong>Easypaisa QR Receipt TID</strong> and your <strong>Sender Account Name &amp; Mobile Number</strong> in the form and submit.</li>
             </ol>
+            <div style="margin-top:8px;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="downloadDepositQr('ep_qr')">
+                <i class="fa-solid fa-download gold-icon"></i> Download Easypaisa QR
+              </button>
+            </div>
             <div class="guide-rules-box">
               <div class="guide-sub-label">Rules:</div>
               <ul class="guide-rules">
@@ -1193,13 +1203,12 @@
         selectPayMethod(selectedPayMethod);
       }
 
-      function drawQrIntoCanvas(canvasId, textData, withTetherCenter) {
-        var canvas = document.getElementById(canvasId);
+      function renderQrToCanvasElement(canvas, textData, withTetherCenter) {
         if (!canvas || typeof window.qrcode !== "function") return;
         var qr = window.qrcode(0, withTetherCenter ? "H" : "M");
         qr.addData(textData);
         qr.make();
-        var count = qr.getModuleCount(), size = 204, margin = 8;
+        var count = qr.getModuleCount(), size = 260, margin = 12;
         canvas.width = size; canvas.height = size;
         var ctx = canvas.getContext("2d");
         ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
@@ -1216,43 +1225,151 @@
         if (withTetherCenter) {
           var cx = size / 2;
           var cy = size / 2;
+          var scale = size / 204;
 
           /* White circular cushion around Tether badge */
           ctx.beginPath();
-          ctx.arc(cx, cy, 22, 0, Math.PI * 2);
+          ctx.arc(cx, cy, 22 * scale, 0, Math.PI * 2);
           ctx.fillStyle = "#ffffff";
           ctx.fill();
 
           /* Teal Tether Shield / Diamond Badge matching uploaded QR photo */
           ctx.save();
           ctx.beginPath();
-          ctx.moveTo(cx - 10, cy - 13);
-          ctx.lineTo(cx + 10, cy - 13);
-          ctx.quadraticCurveTo(cx + 13, cy - 13, cx + 15, cy - 8);
-          ctx.lineTo(cx + 17, cy - 1);
-          ctx.quadraticCurveTo(cx + 18, cy + 3, cx + 14, cy + 7);
-          ctx.lineTo(cx + 2, cy + 16);
-          ctx.quadraticCurveTo(cx, cy + 17.5, cx - 2, cy + 16);
-          ctx.lineTo(cx - 14, cy + 7);
-          ctx.quadraticCurveTo(cx - 18, cy + 3, cx - 17, cy - 1);
-          ctx.lineTo(cx - 15, cy - 8);
-          ctx.quadraticCurveTo(cx - 13, cy - 13, cx - 10, cy - 13);
+          ctx.moveTo(cx - 10 * scale, cy - 13 * scale);
+          ctx.lineTo(cx + 10 * scale, cy - 13 * scale);
+          ctx.quadraticCurveTo(cx + 13 * scale, cy - 13 * scale, cx + 15 * scale, cy - 8 * scale);
+          ctx.lineTo(cx + 17 * scale, cy - 1 * scale);
+          ctx.quadraticCurveTo(cx + 18 * scale, cy + 3 * scale, cx + 14 * scale, cy + 7 * scale);
+          ctx.lineTo(cx + 2 * scale, cy + 16 * scale);
+          ctx.quadraticCurveTo(cx, cy + 17.5 * scale, cx - 2 * scale, cy + 16 * scale);
+          ctx.lineTo(cx - 14 * scale, cy + 7 * scale);
+          ctx.quadraticCurveTo(cx - 18 * scale, cy + 3 * scale, cx - 17 * scale, cy - 1 * scale);
+          ctx.lineTo(cx - 15 * scale, cy - 8 * scale);
+          ctx.quadraticCurveTo(cx - 13 * scale, cy - 13 * scale, cx - 10 * scale, cy - 13 * scale);
           ctx.closePath();
           ctx.fillStyle = "#009393";
           ctx.fill();
 
           /* White Tether (₮) symbol inside badge */
           ctx.fillStyle = "#ffffff";
-          ctx.fillRect(cx - 8, cy - 8.5, 16, 2.8);
-          ctx.fillRect(cx - 1.5, cy - 7, 3, 16);
+          ctx.fillRect(cx - 8 * scale, cy - 8.5 * scale, 16 * scale, 2.8 * scale);
+          ctx.fillRect(cx - 1.5 * scale, cy - 7 * scale, 3 * scale, 16 * scale);
 
           ctx.beginPath();
-          ctx.ellipse(cx, cy - 0.5, 10, 3.2, 0, 0, Math.PI * 2);
-          ctx.lineWidth = 2.1;
+          ctx.ellipse(cx, cy - 0.5 * scale, 10 * scale, 3.2 * scale, 0, 0, Math.PI * 2);
+          ctx.lineWidth = 2.1 * scale;
           ctx.strokeStyle = "#ffffff";
           ctx.stroke();
           ctx.restore();
         }
+      }
+
+      function drawQrIntoCanvas(canvasId, textData, withTetherCenter) {
+        var canvas = document.getElementById(canvasId);
+        renderQrToCanvasElement(canvas, textData, withTetherCenter);
+      }
+
+      function triggerDownloadLink(url, filename, openInNewTab) {
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        if (openInNewTab) {
+          a.target = "_blank";
+          a.rel = "noopener";
+        }
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      function downloadCanvasAsPng(canvas, filename) {
+        if (!canvas) return;
+        if (canvas.toBlob) {
+          canvas.toBlob(function (blob) {
+            if (blob) {
+              var objUrl = URL.createObjectURL(blob);
+              triggerDownloadLink(objUrl, filename, false);
+              setTimeout(function () { URL.revokeObjectURL(objUrl); }, 2000);
+            } else {
+              triggerDownloadLink(canvas.toDataURL("image/png"), filename, false);
+            }
+          }, "image/png");
+        } else {
+          triggerDownloadLink(canvas.toDataURL("image/png"), filename, false);
+        }
+      }
+
+      async function downloadDepositQr(type) {
+        var isTrc = type === "trc20";
+        var containerId = isTrc ? "trcQrContainer" : "epQrContainer";
+        var filename = isTrc ? "OSSIAN-TRC20-Deposit-QR.png" : "OSSIAN-Easypaisa-Deposit-QR.png";
+        var fallbackText = isTrc ? TRC20_ADDRESS : EASYPAISA_IBAN;
+        var container = document.getElementById(containerId);
+
+        if (container) {
+          var domCanvas = container.querySelector("canvas");
+          if (domCanvas) {
+            downloadCanvasAsPng(domCanvas, filename);
+            showToast("Deposit QR downloaded!");
+            return;
+          }
+          var domImg = container.querySelector("img");
+          if (domImg && domImg.src) {
+            try {
+              var res = await fetch(domImg.src, { mode: "cors" });
+              if (res.ok) {
+                var blob = await res.blob();
+                var objUrl = URL.createObjectURL(blob);
+                triggerDownloadLink(objUrl, filename, false);
+                setTimeout(function () { URL.revokeObjectURL(objUrl); }, 2000);
+                showToast("Deposit QR downloaded!");
+                return;
+              }
+            } catch (e) {}
+
+            if (domImg.complete && domImg.naturalWidth > 0) {
+              try {
+                var c = document.createElement("canvas");
+                c.width = domImg.naturalWidth;
+                c.height = domImg.naturalHeight;
+                var ctx = c.getContext("2d");
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(0, 0, c.width, c.height);
+                ctx.drawImage(domImg, 0, 0);
+                c.toDataURL("image/png");
+                downloadCanvasAsPng(c, filename);
+                showToast("Deposit QR downloaded!");
+                return;
+              } catch (err) {
+                triggerDownloadLink(domImg.src, filename, true);
+                showToast("Deposit QR download started!");
+                return;
+              }
+            }
+          }
+        }
+
+        /* Called when QR card isn't currently open (e.g., from Payment Guide tab) */
+        var configuredUrl = isTrc ? adminTrc20QrUrl : (adminEasypaisaQrUrl || "./easypaisa-qr.png");
+        if (configuredUrl) {
+          try {
+            var res2 = await fetch(configuredUrl, { mode: "cors" });
+            if (res2.ok) {
+              var blob2 = await res2.blob();
+              var objUrl2 = URL.createObjectURL(blob2);
+              triggerDownloadLink(objUrl2, filename, false);
+              setTimeout(function () { URL.revokeObjectURL(objUrl2); }, 2000);
+              showToast("Deposit QR downloaded!");
+              return;
+            }
+          } catch (e) {}
+        }
+
+        var offCanvas = document.createElement("canvas");
+        renderQrToCanvasElement(offCanvas, fallbackText, isTrc);
+        downloadCanvasAsPng(offCanvas, filename);
+        showToast("Deposit QR downloaded!");
       }
 
       function renderPaymentMethodDetails() {
@@ -1340,6 +1457,9 @@
                   '<span>Tron (TRC20)</span>' +
                 '</div>' +
               '</div>' +
+              '<button type="button" class="btn btn-primary btn-sm" style="width:100%; margin-top:12px;" onclick="downloadDepositQr(\'trc20\')">' +
+                '<i class="fa-solid fa-download"></i> Download QR Code' +
+              '</button>' +
             '</div>';
           if (!adminTrc20QrUrl) {
             drawQrIntoCanvas("trc20QrCanvas", TRC20_ADDRESS, true);
@@ -1366,6 +1486,9 @@
               '<div class="ep-acc-name">' + EASYPAISA_NAME + '</div>' +
               '<div class="ep-acc-msisdn">MSISDN: ' + EASYPAISA_MSISDN + '</div>' +
               '<div style="font-size:11px; color:#64748b; margin-top:6px;">IBAN: ' + EASYPAISA_IBAN + '</div>' +
+              '<button type="button" class="btn btn-primary btn-sm" style="width:100%; margin-top:12px;" onclick="downloadDepositQr(\'ep_qr\')">' +
+                '<i class="fa-solid fa-download"></i> Download QR Code' +
+              '</button>' +
             '</div>';
         }
       }
@@ -1973,6 +2096,7 @@
       window.switchSection = switchSection;
       window.openCheckoutModal = openCheckoutModal;
       window.selectPayMethod = selectPayMethod;
+      window.downloadDepositQr = downloadDepositQr;
       window.openLoginModal = openLoginModal;
       window.signOutBuyer = signOutBuyer;
       window.triggerBuyerQrUpload = triggerBuyerQrUpload;
