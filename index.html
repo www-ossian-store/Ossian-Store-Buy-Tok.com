@@ -339,12 +339,12 @@
         <div class="hero-top">
           <div>
             <h1><i class="fa-solid fa-coins gold-icon"></i> OSSIAN TOK Buy</h1>
-            <p>Select your Region &amp; Country above and click <strong>Save</strong> to view prices in your country's currency (changeable once every 60 days).</p>
+            <p>Select your Region &amp; Country above and click <strong>Save</strong> to view prices in your country's currency changeable once every 60 days.</p>
           </div>
           <div id="heroAuthAction"></div>
         </div>
         <div class="hero-pills">
-          <span class="hero-pill"><i class="fa-solid fa-user gold-icon"></i> Account: <strong id="heroUserName">Guest (Sign In)</strong></span>
+          <span class="hero-pill"><i class="fa-solid fa-user gold-icon"></i> Account: <strong id="heroUserName">Guest Sign In</strong></span>
           <span class="hero-pill"><i class="fa-solid fa-coins gold-icon"></i> Tokens: <strong id="heroUserTokens">0</strong></span>
           <span class="hero-pill"><i class="fa-solid fa-wallet gold-icon"></i> Balance: <strong id="heroUserBalance">$0.00</strong></span>
           <span class="hero-pill"><i class="fa-solid fa-earth-asia gold-icon"></i> Price Currency: <strong id="heroCurrencyBadge">Not Saved</strong></span>
@@ -353,13 +353,13 @@
 
       <!-- Region Prompt Banner (shown until saved) -->
       <div class="notice-banner" id="regionPromptBanner">
-        <div><i class="fa-solid fa-earth-americas gold-icon"></i> Prices are hidden! Select your <strong>Region</strong> &amp; <strong>Country</strong> at the top-right and click <strong>Save</strong> to unlock prices.</div>
+        <div><i class="fa-solid fa-earth-americas gold-icon"></i> Security Issue! Select your <strong>Region</strong> &amp; <strong>Country</strong> at the top-right and click <strong>Save</strong> to unlock prices.</div>
       </div>
 
       <!-- Navigation Tabs -->
       <div class="top-tabs">
         <button class="tab-btn active" id="tabBtnBuy" onclick="switchSection('buy')">
-          <i class="fa-solid fa-bag-shopping"></i> Buy Tokens (20)
+          <i class="fa-solid fa-bag-shopping"></i> Buy Tokens 
         </button>
         <button class="tab-btn" id="tabBtnHistory" onclick="switchSection('history')">
           <i class="fa-solid fa-clock-rotate-left"></i> History
@@ -412,24 +412,24 @@
       </div>
 
       <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:7px;">
-        Select Payment Method (5 Options)
+        Select Payment Method 
       </div>
       <div class="pay-methods-grid">
         <button type="button" class="pay-method-btn active" data-pm="balance" onclick="selectPayMethod('balance')" style="grid-column: 1 / -1;">
           <i class="fa-solid fa-wallet gold-icon"></i>
-          <span>1. Pay with Account Balance ($) — Instant Tokens</span>
+          <span>1. Pay with Account Balance  — Instant Tokens</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="binance" onclick="selectPayMethod('binance')">
           <i class="fa-brands fa-bitcoin gold-icon"></i>
-          <span>2. Binance Pay (UID)</span>
+          <span>2. Binance Pay </span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="trc20" onclick="selectPayMethod('trc20')">
           <i class="fa-solid fa-coins gold-icon"></i>
-          <span>3. TRC-20 USDT</span>
+          <span>3. TRC-20 USDT pay</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="ep_iban" onclick="selectPayMethod('ep_iban')">
           <i class="fa-solid fa-building-columns gold-icon"></i>
-          <span>4. Easypaisa IBAN</span>
+          <span>4. Easypaisa IBAN Pay</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="ep_qr" onclick="selectPayMethod('ep_qr')">
           <i class="fa-solid fa-qrcode gold-icon"></i>
@@ -446,7 +446,7 @@
             <input type="text" id="orderTxIdInput" placeholder="Enter your Transaction ID or Reference" />
           </div>
           <div class="form-group">
-            <label>Sender Account / Number / Wallet (Optional)</label>
+            <label>Sender Account / Number / Wallet </label>
             <input type="text" id="orderSenderInput" placeholder="e.g. Sender UID, Phone, or Wallet" />
           </div>
         </div>
@@ -473,7 +473,7 @@
       <div class="err-box" id="loginSecurityErrBox"></div>
       <form id="buyerLoginForm">
         <div class="form-group">
-          <label>Registered Email</label>
+          <label> Email</label>
           <input type="email" id="buyerEmailInput" placeholder="Enter your email" required />
         </div>
         <div class="form-group">
@@ -526,25 +526,25 @@
 
       const TOKEN_PACKAGES = [
         { id: 1, usd: 2, base: 2500, bonus: 250 },
-        { id: 2, usd: 4, base: 5000, bonus: 550 },
-        { id: 3, usd: 6, base: 7500, bonus: 900 },
-        { id: 4, usd: 8, base: 10000, bonus: 1300 },
-        { id: 5, usd: 10, base: 12500, bonus: 1750 },
-        { id: 6, usd: 15, base: 18750, bonus: 2815 },
-        { id: 7, usd: 20, base: 25000, bonus: 4000 },
-        { id: 8, usd: 25, base: 31250, bonus: 5315 },
-        { id: 9, usd: 30, base: 37500, bonus: 6750 },
-        { id: 10, usd: 40, base: 50000, bonus: 9500 },
-        { id: 11, usd: 50, base: 62500, bonus: 12500 },
-        { id: 12, usd: 65, base: 81250, bonus: 17875 },
-        { id: 13, usd: 80, base: 100000, bonus: 24000 },
-        { id: 14, usd: 100, base: 125000, bonus: 31250 },
-        { id: 15, usd: 125, base: 156250, bonus: 42190 },
-        { id: 16, usd: 150, base: 187500, bonus: 54375 },
-        { id: 17, usd: 200, base: 250000, bonus: 77500 },
-        { id: 18, usd: 250, base: 312500, bonus: 103125 },
-        { id: 19, usd: 350, base: 437500, bonus: 148750 },
-        { id: 20, usd: 500, base: 625000, bonus: 218750 }
+        { id: 2, usd: 4, base: 5000, bonus: 950 },
+        { id: 3, usd: 6, base: 7500, bonus: 2000 },
+        { id: 4, usd: 8, base: 10000, bonus: 4500 },
+        { id: 5, usd: 10, base: 12500, bonus: 7050 },
+        { id: 6, usd: 15, base: 18750, bonus: 1105 },
+        { id: 7, usd: 20, base: 25000, bonus: 16000 },
+        { id: 8, usd: 25, base: 31250, bonus: 23150 },
+        { id: 9, usd: 30, base: 37500, bonus: 28500 },
+        { id: 10, usd: 40, base: 50000, bonus: 33500 },
+        { id: 11, usd: 50, base: 62500, bonus: 45000 },
+        { id: 12, usd: 65, base: 81250, bonus: 52875 },
+        { id: 13, usd: 80, base: 100000, bonus: 61000 },
+        { id: 14, usd: 100, base: 125000, bonus: 71250 },
+        { id: 15, usd: 125, base: 156250, bonus: 92199 },
+        { id: 16, usd: 150, base: 187500, bonus: 114375 },
+        { id: 17, usd: 200, base: 250000, bonus: 275000 },
+        { id: 18, usd: 250, base: 312500, bonus: 503125 },
+        { id: 19, usd: 350, base: 437500, bonus: 848750 },
+        { id: 20, usd: 500, base: 625000, bonus: 9187500 }
       ];
 
       const COUNTRIES = [
@@ -889,7 +889,7 @@
               '<div class="pkg-total-tok">' + formatNum(total) + ' TOK</div>' +
               '<div class="pkg-breakdown">' +
                 'Base: <strong>' + formatNum(pkg.base) + '</strong><br>' +
-                'Extra Bonus: <strong style="color:#10b981;">+' + formatNum(pkg.bonus) + '</strong>' +
+                ' Bonus: <strong style="color:#10b981;">+' + formatNum(pkg.bonus) + '</strong>' +
               '</div>' +
             '</div>' +
             '<div>' +
@@ -938,8 +938,8 @@
       function updateCheckoutModalHeaderAndDetails() {
         var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
         var total = pkg.base + pkg.bonus;
-        document.getElementById("modalPkgTitle").textContent = "Box #" + pkg.id + " — " + formatNum(total) + " Tokens";
-        document.getElementById("modalPkgBreakdown").textContent = formatNum(pkg.base) + " Base + " + formatNum(pkg.bonus) + " Extra Bonus Tokens";
+        document.getElementById("modalPkgTitle").textContent = "#" + pkg.id + " — " + formatNum(total) + " Tokens";
+        document.getElementById("modalPkgBreakdown").textContent = formatNum(pkg.base) + " Base + " + formatNum(pkg.bonus) + " Bonus Tokens";
         document.getElementById("modalLocalPrice").textContent = formatSelectedCountryPrice(pkg.usd);
         document.getElementById("modalAccountTag").textContent = "UID: " + (currentUser ? currentUser.uid : "-");
         selectPayMethod(selectedPayMethod);
