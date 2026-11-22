@@ -125,15 +125,16 @@
       display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     }
 
-    /* Section Tabs */
+    /* Section Tabs (4 Tabs) */
     .top-tabs {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
       background: var(--surface); border: 1px solid var(--border); padding: 6px; border-radius: 16px;
       margin-bottom: 16px; box-shadow: var(--shadow);
     }
+    @media (min-width: 640px) { .top-tabs { grid-template-columns: repeat(4, 1fr); } }
     .tab-btn {
       padding: 10px 8px; border: none; border-radius: 12px; background: transparent;
-      color: var(--text-muted); font-size: 13px; font-weight: 700; cursor: pointer;
+      color: var(--text-muted); font-size: 12.5px; font-weight: 700; cursor: pointer;
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     }
     .tab-btn.active { background: var(--gold-grad); color: #0f172a; }
@@ -151,7 +152,7 @@
       box-shadow: var(--shadow); cursor: pointer; transition: transform 0.15s, border-color 0.2s;
     }
     .pkg-card:hover { border-color: #f59e0b; transform: translateY(-2px); }
-    .pkg-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; }
+    .pkg-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
     .pkg-num {
       font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 99px;
       background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
@@ -160,7 +161,8 @@
       font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 99px;
       background: rgba(16, 185, 129, 0.14); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);
     }
-    .pkg-total-tok { font-size: 19px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
+    .pkg-name { font-size: 13px; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
+    .pkg-total-tok { font-size: 18.5px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
     .pkg-breakdown { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
     .pkg-price-box {
       background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
@@ -183,6 +185,36 @@
     .kv-label { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
     .kv-val { font-size: 13.5px; font-weight: 700; word-break: break-all; }
 
+    /* Payment Guide & Rules Cards */
+    .guide-card {
+      background: var(--surface-2); border: 1.5px solid var(--border); border-radius: 16px;
+      padding: 14px; margin-bottom: 12px;
+    }
+    .guide-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .guide-title {
+      font-size: 14.5px; font-weight: 800; display: flex; align-items: center; gap: 8px;
+    }
+    .guide-badge {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 99px;
+      background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
+    }
+    .guide-sub-label {
+      font-size: 11.5px; font-weight: 800; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.4px; margin: 8px 0 5px;
+    }
+    .guide-steps, .guide-rules {
+      padding-left: 18px; font-size: 12.5px; line-height: 1.55; color: var(--text);
+    }
+    .guide-steps li, .guide-rules li { margin-bottom: 4px; }
+    .guide-rules-box {
+      margin-top: 10px; background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.28); border-radius: 12px; padding: 10px 12px;
+    }
+    .guide-rules-box .guide-sub-label { color: #ef4444; margin-top: 0; }
+
     .btn {
       width: 100%; padding: 11px 14px; border-radius: 12px; border: none;
       font-size: 13.5px; font-weight: 700; cursor: pointer;
@@ -202,6 +234,13 @@
       font-size: 13.5px; outline: none; font-family: inherit;
     }
     .form-group input:focus { border-color: #f59e0b; }
+
+    .submit-method-hint {
+      font-size: 12px; font-weight: 700; color: var(--primary);
+      background: var(--gold-bg); border: 1px solid var(--gold-border);
+      padding: 8px 11px; border-radius: 10px; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 7px;
+    }
 
     /* Payment Methods (5 Methods including Account Balance) */
     .pay-methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
@@ -356,13 +395,16 @@
         <div><i class="fa-solid fa-earth-americas gold-icon"></i> Security Issue! Select your <strong>Region</strong> &amp; <strong>Country</strong> at the top-right and click <strong>Save</strong> to unlock prices.</div>
       </div>
 
-      <!-- Navigation Tabs -->
+      <!-- Navigation Tabs (Buy Tokens -> History -> Payment Guide -> Account Details) -->
       <div class="top-tabs">
         <button class="tab-btn active" id="tabBtnBuy" onclick="switchSection('buy')">
-          <i class="fa-solid fa-bag-shopping"></i> Buy Tokens 
+          <i class="fa-solid fa-bag-shopping"></i> Buy Tokens
         </button>
         <button class="tab-btn" id="tabBtnHistory" onclick="switchSection('history')">
           <i class="fa-solid fa-clock-rotate-left"></i> History
+        </button>
+        <button class="tab-btn" id="tabBtnGuide" onclick="switchSection('guide')">
+          <i class="fa-solid fa-book-open"></i> Payment Guide
         </button>
         <button class="tab-btn" id="tabBtnAccount" onclick="switchSection('account')">
           <i class="fa-solid fa-id-card"></i> Account Details
@@ -389,7 +431,150 @@
         </div>
       </section>
 
-      <!-- 3. FULL USER ACCOUNT DETAILS -->
+      <!-- 3. PAYMENT TRANSFER GUIDE & RULES (BETWEEN HISTORY AND ACCOUNT DETAILS) -->
+      <section id="sec-guide" class="tab-section">
+        <div class="panel-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:15px; font-weight:800;">
+              <i class="fa-solid fa-book-open gold-icon"></i> How to Transfer Payment &amp; Official Rules
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="switchSection('buy')">
+              <i class="fa-solid fa-bag-shopping"></i> Go to Buy Tokens
+            </button>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">
+            Read the complete transfer instructions and rules for each payment method carefully before placing an order. Only paste the required details for the specific payment method you choose.
+          </p>
+
+          <!-- Method 1: Account Balance -->
+          <div class="guide-card">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-solid fa-wallet gold-icon"></i> 1. Pay with Account Balance</div>
+              <span class="guide-badge">Instant Credit</span>
+            </div>
+            <div class="guide-sub-label">How to Transfer:</div>
+            <ol class="guide-steps">
+              <li>Sign in to your OSSIAN PRO account and open any of the 20 Token Boxes.</li>
+              <li>Select <strong>1. Pay with Account Balance</strong> in the checkout popup.</li>
+              <li>Verify your current USD Balance covers the package cost, then tap <strong>Pay Instantly from Account Balance</strong>.</li>
+              <li>No Transaction ID or manual form is required — tokens are credited immediately.</li>
+            </ol>
+            <div class="guide-rules-box">
+              <div class="guide-sub-label">Rules:</div>
+              <ul class="guide-rules">
+                <li>Your Account Balance must be equal to or greater than the package price.</li>
+                <li>Once purchased via Account Balance, the transaction is final and non-refundable.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Method 2: Binance Pay -->
+          <div class="guide-card">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-brands fa-bitcoin gold-icon"></i> 2. Binance Pay (Send by UID)</div>
+              <span class="guide-badge">Manual Verification</span>
+            </div>
+            <div class="guide-sub-label">How to Transfer:</div>
+            <ol class="guide-steps">
+              <li>Select <strong>2. Binance Pay</strong> at checkout and copy the official company <strong>Binance UID</strong> shown.</li>
+              <li>Open your Binance App &rarr; Go to <strong>Pay</strong> &rarr; Tap <strong>Send</strong> &rarr; Choose <strong>Binance ID (UID)</strong>.</li>
+              <li>Paste the company UID, enter the exact USDT/USD package amount, and confirm payment.</li>
+              <li>In checkout, paste <strong>only</strong> your <strong>Binance Pay Order ID</strong> and your <strong>Sender Binance UID</strong>, then submit.</li>
+            </ol>
+            <div class="guide-rules-box">
+              <div class="guide-sub-label">Rules:</div>
+              <ul class="guide-rules">
+                <li>Always send the exact package amount — underpaid orders will be rejected.</li>
+                <li>Never reuse an old Order ID or submit someone else's Binance Pay receipt.</li>
+                <li>Verification completes shortly after submission; tokens are credited automatically once approved.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Method 3: TRC-20 USDT -->
+          <div class="guide-card">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-solid fa-coins gold-icon"></i> 3. TRC-20 USDT Transfer</div>
+              <span class="guide-badge">TRON Network Only</span>
+            </div>
+            <div class="guide-sub-label">How to Transfer:</div>
+            <ol class="guide-steps">
+              <li>Select <strong>3. TRC-20 USDT Pay</strong> and copy the wallet address (<code>TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</code>) or scan the QR code.</li>
+              <li>Open your exchange/crypto wallet &rarr; Withdraw/Send <strong>USDT</strong> &rarr; Select network <strong>TRON (TRC-20)</strong>.</li>
+              <li>Send the exact USDT amount (make sure network withdrawal fees are covered separately).</li>
+              <li>In checkout, paste <strong>only</strong> the <strong>TRC-20 Transaction Hash (TxID)</strong> and your <strong>Sender TRC-20 Wallet Address</strong>.</li>
+            </ol>
+            <div class="guide-rules-box">
+              <div class="guide-sub-label">Rules:</div>
+              <ul class="guide-rules">
+                <li><strong>STRICTLY TRON (TRC-20) ONLY:</strong> Sending via ERC-20, BEP-20, Polygon, or Solana will cause permanent loss of funds.</li>
+                <li>Do not deduct network gas fees from the required package amount.</li>
+                <li>Wait for blockchain confirmation and paste the exact TxID hash.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Method 4: Easypaisa IBAN -->
+          <div class="guide-card">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-solid fa-building-columns gold-icon"></i> 4. Easypaisa IBAN Pay</div>
+              <span class="guide-badge">Bank / IBAN Transfer</span>
+            </div>
+            <div class="guide-sub-label">How to Transfer:</div>
+            <ol class="guide-steps">
+              <li>Select <strong>4. Easypaisa IBAN Pay</strong> and copy the IBAN: <code>PK36TMFB0000000050698679</code>.</li>
+              <li>Open Easypaisa, JazzCash, SadaPay, NayaPay, or any Bank App &rarr; Select <strong>Bank / IBAN Transfer</strong>.</li>
+              <li>Choose <strong>Telenor Microfinance Bank / Easypaisa</strong>, paste the IBAN, and confirm the account title is <strong>MUHAMMAD ASLAM</strong>.</li>
+              <li>Send the exact PKR price displayed on your selected box, then paste your <strong>Easypaisa/Bank TID</strong> and <strong>Sender Account Title &amp; Number</strong>.</li>
+            </ol>
+            <div class="guide-rules-box">
+              <div class="guide-sub-label">Rules:</div>
+              <ul class="guide-rules">
+                <li>Double-check the account title (<strong>MUHAMMAD ASLAM</strong>) before confirming any transfer.</li>
+                <li>Send the exact amount shown in local currency; partial transfers are not accepted.</li>
+                <li>Save your receipt screenshot in case verification is requested.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Method 5: Easypaisa QR Pay -->
+          <div class="guide-card">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-solid fa-qrcode gold-icon"></i> 5. Easypaisa QR Pay</div>
+              <span class="guide-badge">App Scan &amp; Pay</span>
+            </div>
+            <div class="guide-sub-label">How to Transfer:</div>
+            <ol class="guide-steps">
+              <li>Select <strong>5. Easypaisa QR Pay</strong> in the checkout modal to display the official Easypaisa QR card.</li>
+              <li>Open your <strong>Easypaisa App</strong> &rarr; Tap <strong>Scan QR</strong> &rarr; Scan the displayed QR code.</li>
+              <li>Verify recipient details show <strong>MUHAMMAD ASLAM</strong> (MSISDN ending in <strong>4110</strong>) and send the exact PKR amount.</li>
+              <li>Paste your <strong>Easypaisa QR Receipt TID</strong> and your <strong>Sender Account Name &amp; Mobile Number</strong> in the form and submit.</li>
+            </ol>
+            <div class="guide-rules-box">
+              <div class="guide-sub-label">Rules:</div>
+              <ul class="guide-rules">
+                <li>Only scan the live QR code shown inside OSSIAN TOK Buy.</li>
+                <li>Each Easypaisa TID can only be submitted once; duplicate or fake TIDs are strictly rejected.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- General Rules -->
+          <div class="guide-card" style="border-color: var(--gold-border); background: var(--gold-bg); margin-bottom:0;">
+            <div class="guide-head">
+              <div class="guide-title"><i class="fa-solid fa-shield-halved gold-icon"></i> General OSSIAN TOK Buy Rules</div>
+            </div>
+            <ul class="guide-rules">
+              <li><strong>60-Day Region Lock:</strong> Once you select &amp; save your Region and Country, your price currency is locked for 60 days.</li>
+              <li><strong>Accurate Proof Only:</strong> Submitting fake, edited, or reused Transaction IDs can lead to order rejection or account suspension.</li>
+              <li><strong>Exact Account Sync:</strong> Approved tokens are synced directly to your logged-in OSSIAN PRO UID across both platforms.</li>
+              <li><strong>Active Accounts Only:</strong> Suspended accounts are blocked from purchasing or receiving tokens.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. FULL USER ACCOUNT DETAILS -->
       <section id="sec-account" class="tab-section">
         <div class="panel-card" id="accountDetailsBody"></div>
       </section>
@@ -402,7 +587,7 @@
       <div class="sheet-handle"></div>
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:10px;">
         <div>
-          <h3 id="modalPkgTitle" style="font-size:18px; font-weight:800;">Box #1 — 2,750 Tokens</h3>
+          <h3 id="modalPkgTitle" style="font-size:18px; font-weight:800;">Box #1: Starter Spark — 2,750 Tokens</h3>
           <div id="modalPkgBreakdown" style="font-size:12px; color:var(--text-muted);">2,500 Base + 250 Extra Bonus Tokens</div>
         </div>
         <div style="text-align:right;">
@@ -412,20 +597,20 @@
       </div>
 
       <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:7px;">
-        Select Payment Method 
+        Select Payment Method
       </div>
       <div class="pay-methods-grid">
         <button type="button" class="pay-method-btn active" data-pm="balance" onclick="selectPayMethod('balance')" style="grid-column: 1 / -1;">
           <i class="fa-solid fa-wallet gold-icon"></i>
-          <span>1. Pay with Account Balance  — Instant Tokens</span>
+          <span>1. Pay with Account Balance — Instant Tokens</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="binance" onclick="selectPayMethod('binance')">
           <i class="fa-brands fa-bitcoin gold-icon"></i>
-          <span>2. Binance Pay </span>
+          <span>2. Binance Pay</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="trc20" onclick="selectPayMethod('trc20')">
           <i class="fa-solid fa-coins gold-icon"></i>
-          <span>3. TRC-20 USDT pay</span>
+          <span>3. TRC-20 USDT Pay</span>
         </button>
         <button type="button" class="pay-method-btn" data-pm="ep_iban" onclick="selectPayMethod('ep_iban')">
           <i class="fa-solid fa-building-columns gold-icon"></i>
@@ -441,13 +626,17 @@
 
       <form id="orderSubmitForm">
         <div id="manualTxFields">
-          <div class="form-group">
-            <label>Transaction ID / Reference / Binance Order ID</label>
-            <input type="text" id="orderTxIdInput" placeholder="Enter your Transaction ID or Reference" />
+          <div class="submit-method-hint" id="submitMethodHint">
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="submitMethodHintText">Paste your payment details below</span>
           </div>
           <div class="form-group">
-            <label>Sender Account / Number / Wallet </label>
-            <input type="text" id="orderSenderInput" placeholder="e.g. Sender UID, Phone, or Wallet" />
+            <label id="orderTxIdLabel">Transaction ID</label>
+            <input type="text" id="orderTxIdInput" placeholder="Enter your Transaction ID" />
+          </div>
+          <div class="form-group">
+            <label id="orderSenderLabel">Sender Account</label>
+            <input type="text" id="orderSenderInput" placeholder="Enter your sender details" />
           </div>
         </div>
         <div style="display:flex; gap:8px;">
@@ -473,7 +662,7 @@
       <div class="err-box" id="loginSecurityErrBox"></div>
       <form id="buyerLoginForm">
         <div class="form-group">
-          <label> Email</label>
+          <label>Email</label>
           <input type="email" id="buyerEmailInput" placeholder="Enter your email" required />
         </div>
         <div class="form-group">
@@ -524,28 +713,61 @@
 
       let savedRegionState = { saved: false, region: "", country: "", savedAt: 0 };
 
+      /* 20 Boxes with distinct names and price right after bonus */
       const TOKEN_PACKAGES = [
-        { id: 1, usd: 2, base: 2500, bonus: 250 },
-        { id: 2, usd: 4, base: 5000, bonus: 950 },
-        { id: 3, usd: 6, base: 7500, bonus: 2000 },
-        { id: 4, usd: 8, base: 10000, bonus: 4500 },
-        { id: 5, usd: 10, base: 12500, bonus: 7050 },
-        { id: 6, usd: 15, base: 18750, bonus: 1105 },
-        { id: 7, usd: 20, base: 25000, bonus: 16000 },
-        { id: 8, usd: 25, base: 31250, bonus: 23150 },
-        { id: 9, usd: 30, base: 37500, bonus: 28500 },
-        { id: 10, usd: 40, base: 50000, bonus: 33500 },
-        { id: 11, usd: 50, base: 62500, bonus: 45000 },
-        { id: 12, usd: 65, base: 81250, bonus: 52875 },
-        { id: 13, usd: 80, base: 100000, bonus: 61000 },
-        { id: 14, usd: 100, base: 125000, bonus: 71250 },
-        { id: 15, usd: 125, base: 156250, bonus: 92199 },
-        { id: 16, usd: 150, base: 187500, bonus: 114375 },
-        { id: 17, usd: 200, base: 250000, bonus: 275000 },
-        { id: 18, usd: 250, base: 312500, bonus: 503125 },
-        { id: 19, usd: 350, base: 437500, bonus: 848750 },
-        { id: 20, usd: 500, base: 625000, bonus: 9187500 }
+        { id: 1,  name: "Starter Spark",    base: 2500,   bonus: 250,     price: 2,   usd: 2 },
+        { id: 2,  name: "Copper Boost",     base: 5000,   bonus: 950,     price: 4,   usd: 4 },
+        { id: 3,  name: "Bronze Vault",     base: 7500,   bonus: 2000,    price: 6,   usd: 6 },
+        { id: 4,  name: "Silver Surge",     base: 10000,  bonus: 4500,    price: 8,   usd: 8 },
+        { id: 5,  name: "Cobalt Chest",     base: 12500,  bonus: 7050,    price: 10,  usd: 10 },
+        { id: 6,  name: "Emerald Crate",    base: 18750,  bonus: 1105,    price: 15,  usd: 15 },
+        { id: 7,  name: "Jade Reserve",     base: 25000,  bonus: 16000,   price: 20,  usd: 20 },
+        { id: 8,  name: "Sapphire Stash",   base: 31250,  bonus: 23150,   price: 25,  usd: 25 },
+        { id: 9,  name: "Ruby Treasury",    base: 37500,  bonus: 28500,   price: 30,  usd: 30 },
+        { id: 10, name: "Amethyst Pack",    base: 50000,  bonus: 33500,   price: 40,  usd: 40 },
+        { id: 11, name: "Gold Reserve",     base: 62500,  bonus: 45000,   price: 50,  usd: 50 },
+        { id: 12, name: "Platinum Core",    base: 81250,  bonus: 52875,   price: 65,  usd: 65 },
+        { id: 13, name: "Diamond Crest",    base: 100000, bonus: 61000,   price: 80,  usd: 80 },
+        { id: 14, name: "Titan Bundle",     base: 125000, bonus: 71250,   price: 100, usd: 100 },
+        { id: 15, name: "Obsidian Crown",   base: 156250, bonus: 92199,   price: 125, usd: 125 },
+        { id: 16, name: "Sovereign Box",    base: 187500, bonus: 114375,  price: 150, usd: 150 },
+        { id: 17, name: "Imperial Chest",   base: 250000, bonus: 275000,  price: 200, usd: 200 },
+        { id: 18, name: "Grand Monarch",    base: 312500, bonus: 503125,  price: 250, usd: 250 },
+        { id: 19, name: "Celestial Legend", base: 437500, bonus: 848750,  price: 350, usd: 350 },
+        { id: 20, name: "Ossian Emperor",   base: 625000, bonus: 9187500, price: 500, usd: 500 }
       ];
+
+      /* Method-specific submission field labels & placeholders */
+      const PAYMENT_INPUT_SPECS = {
+        binance: {
+          hint: "Paste your Binance Pay transfer details only:",
+          txLabel: "Binance Pay Order ID",
+          txPlaceholder: "e.g. 294810293847123",
+          senderLabel: "Your Sender Binance UID / Pay ID",
+          senderPlaceholder: "e.g. 123456789"
+        },
+        trc20: {
+          hint: "Paste your TRON (TRC-20) USDT transfer details only:",
+          txLabel: "TRC-20 Transaction Hash (TxID)",
+          txPlaceholder: "Paste full TRC-20 TxID / Hash",
+          senderLabel: "Your Sender TRC-20 Wallet Address",
+          senderPlaceholder: "e.g. T... (Your TRC-20 Wallet)"
+        },
+        ep_iban: {
+          hint: "Paste your Easypaisa IBAN Bank Transfer details only:",
+          txLabel: "Easypaisa / Bank Transaction ID (TID)",
+          txPlaceholder: "Enter 11-16 digit Bank / Easypaisa TID",
+          senderLabel: "Sender Account Title & Mobile / IBAN",
+          senderPlaceholder: "e.g. Ali Khan - 03001234567"
+        },
+        ep_qr: {
+          hint: "Paste your Easypaisa QR Scan payment details only:",
+          txLabel: "Easypaisa QR Receipt TID",
+          txPlaceholder: "Enter Easypaisa receipt TID",
+          senderLabel: "Sender Easypaisa Account Name & Mobile",
+          senderPlaceholder: "e.g. Ali Khan - 03001234567"
+        }
+      };
 
       const COUNTRIES = [
         ["AS","Afghanistan","AFN","؋",70],["AS","Armenia","AMD","֏",387],["AS","Azerbaijan","AZN","₼",1.7],
@@ -625,6 +847,7 @@
         return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
       }
       function formatNum(n) { return (Number(n) || 0).toLocaleString(); }
+      function getPkgPriceUsd(pkg) { return Number(pkg.price != null ? pkg.price : pkg.usd) || 0; }
 
       function hashSecret(str) {
         var h1 = 0x811c9dc5, h2 = 0x9e3779b9, s = String(str || "");
@@ -876,8 +1099,9 @@
         grid.innerHTML = TOKEN_PACKAGES.map(function (pkg, idx) {
           var total = pkg.base + pkg.bonus;
           var pct = Math.round((pkg.bonus / pkg.base) * 100);
+          var pkgUsd = getPkgPriceUsd(pkg);
           var priceHtml = isUnlocked
-            ? '<div class="pkg-local-price">' + escapeHtml(formatSelectedCountryPrice(pkg.usd)) + '</div>'
+            ? '<div class="pkg-local-price">' + escapeHtml(formatSelectedCountryPrice(pkgUsd)) + '</div>'
             : '<div class="pkg-locked-price"><i class="fa-solid fa-lock gold-icon"></i> Select &amp; Save Country</div>';
 
           return '<div class="pkg-card" onclick="openCheckoutModal(' + idx + ')">' +
@@ -886,10 +1110,11 @@
                 '<span class="pkg-num">Box #' + pkg.id + '</span>' +
                 '<span class="pkg-bonus-badge">+' + pct + '% Extra</span>' +
               '</div>' +
+              '<div class="pkg-name">' + escapeHtml(pkg.name) + '</div>' +
               '<div class="pkg-total-tok">' + formatNum(total) + ' TOK</div>' +
               '<div class="pkg-breakdown">' +
                 'Base: <strong>' + formatNum(pkg.base) + '</strong><br>' +
-                ' Bonus: <strong style="color:#10b981;">+' + formatNum(pkg.bonus) + '</strong>' +
+                'Bonus: <strong style="color:#10b981;">+' + formatNum(pkg.bonus) + '</strong>' +
               '</div>' +
             '</div>' +
             '<div>' +
@@ -932,15 +1157,18 @@
         document.querySelectorAll(".pay-method-btn").forEach(function (b) {
           b.classList.toggle("active", b.getAttribute("data-pm") === method);
         });
+        document.getElementById("orderTxIdInput").value = "";
+        document.getElementById("orderSenderInput").value = "";
         renderPaymentMethodDetails();
       }
 
       function updateCheckoutModalHeaderAndDetails() {
         var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
         var total = pkg.base + pkg.bonus;
-        document.getElementById("modalPkgTitle").textContent = "#" + pkg.id + " — " + formatNum(total) + " Tokens";
+        var pkgUsd = getPkgPriceUsd(pkg);
+        document.getElementById("modalPkgTitle").textContent = "Box #" + pkg.id + ": " + pkg.name + " — " + formatNum(total) + " Tokens";
         document.getElementById("modalPkgBreakdown").textContent = formatNum(pkg.base) + " Base + " + formatNum(pkg.bonus) + " Bonus Tokens";
-        document.getElementById("modalLocalPrice").textContent = formatSelectedCountryPrice(pkg.usd);
+        document.getElementById("modalLocalPrice").textContent = formatSelectedCountryPrice(pkgUsd);
         document.getElementById("modalAccountTag").textContent = "UID: " + (currentUser ? currentUser.uid : "-");
         selectPayMethod(selectedPayMethod);
       }
@@ -970,17 +1198,23 @@
         var box = document.getElementById("paymentMethodDetails");
         var manualFields = document.getElementById("manualTxFields");
         var txInput = document.getElementById("orderTxIdInput");
+        var senderInput = document.getElementById("orderSenderInput");
+        var txLabel = document.getElementById("orderTxIdLabel");
+        var senderLabel = document.getElementById("orderSenderLabel");
+        var hintText = document.getElementById("submitMethodHintText");
         var submitBtn = document.getElementById("submitOrderBtn");
 
         var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
-        var localAmt = formatSelectedCountryPrice(pkg.usd);
+        var pkgUsd = getPkgPriceUsd(pkg);
+        var localAmt = formatSelectedCountryPrice(pkgUsd);
 
         if (selectedPayMethod === "balance") {
           manualFields.style.display = "none";
           txInput.required = false;
+          senderInput.required = false;
 
           var userBal = roundUsd(currentUser ? currentUser.balance : 0);
-          var hasEnough = userBal >= pkg.usd;
+          var hasEnough = userBal >= pkgUsd;
           submitBtn.disabled = !hasEnough;
           submitBtn.innerHTML = hasEnough
             ? '<i class="fa-solid fa-bolt"></i> Pay Instantly from Account Balance'
@@ -990,7 +1224,7 @@
             '<div style="font-size:13.5px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-wallet gold-icon"></i> Pay Using Your Account Balance</div>' +
             '<div style="font-size:12.5px; line-height:1.5; color:var(--text-muted);">' +
               'Your Account Balance: <strong style="color:var(--text);">$' + userBal.toFixed(2) + '</strong><br>' +
-              'Package Price (' + escapeHtml(savedRegionState.country) + '): <strong style="color:var(--primary);">' + escapeHtml(localAmt) + '</strong><br>' +
+              'Package (' + escapeHtml(pkg.name) + ' - ' + escapeHtml(savedRegionState.country) + '): <strong style="color:var(--primary);">' + escapeHtml(localAmt) + '</strong><br>' +
               'You Will Receive: <strong style="color:#10b981;">+' + formatNum(pkg.base + pkg.bonus) + ' Tokens</strong> (Exact)' +
             '</div>' +
             (!hasEnough
@@ -1001,11 +1235,22 @@
 
         manualFields.style.display = "block";
         txInput.required = true;
+        senderInput.required = true;
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Confirm &amp; Submit Order';
 
+        /* Apply method-specific labels, placeholders, and hint */
+        var spec = PAYMENT_INPUT_SPECS[selectedPayMethod];
+        if (spec) {
+          hintText.textContent = spec.hint;
+          txLabel.textContent = spec.txLabel;
+          txInput.placeholder = spec.txPlaceholder;
+          senderLabel.textContent = spec.senderLabel;
+          senderInput.placeholder = spec.senderPlaceholder;
+        }
+
         if (selectedPayMethod === "binance") {
-          var uidDisplay = adminBinanceUid || "Check Admin Binance Pay UID";
+          var uidDisplay = adminBinanceUid || "Check company Binance Pay UID";
           box.innerHTML =
             '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-brands fa-bitcoin gold-icon"></i> Binance Pay (by UID)</div>' +
             '<p style="font-size:12px; color:var(--text-muted); line-height:1.45;">Pay <strong>' + escapeHtml(localAmt) + '</strong> via <strong>Binance Pay → Send by UID</strong>, then enter your Binance Pay Order ID below.</p>' +
@@ -1074,6 +1319,7 @@
         btn.disabled = true;
 
         var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
+        var pkgUsd = getPkgPriceUsd(pkg);
         var info = getSelectedCountryInfo();
         var now = Date.now();
         var exactTotalTokens = pkg.base + pkg.bonus;
@@ -1085,7 +1331,7 @@
             showToast("Internet error! Could not verify Account Balance.");
             return;
           }
-          if (freshUser.balance < pkg.usd) {
+          if (freshUser.balance < pkgUsd) {
             currentUser = freshUser;
             safeSet("ossian_current_user_v1", JSON.stringify(currentUser));
             renderUserSummaryAndAccount();
@@ -1094,7 +1340,7 @@
             return;
           }
 
-          var newBal = roundUsd(freshUser.balance - pkg.usd);
+          var newBal = roundUsd(freshUser.balance - pkgUsd);
           var exactNewTokens = Math.max(0, Math.floor(freshUser.tokens || 0)) + exactTotalTokens;
           var balOrdId = "ord_bal_" + now + "_" + Math.floor(1000 + Math.random() * 9000);
 
@@ -1130,11 +1376,12 @@
             name: currentUser.name,
             email: currentUser.email,
             boxId: pkg.id,
+            boxName: pkg.name,
             baseTokens: pkg.base,
             bonusTokens: pkg.bonus,
             totalTokens: exactTotalTokens,
-            usdAmount: pkg.usd,
-            localAmountText: formatSelectedCountryPrice(pkg.usd),
+            usdAmount: pkgUsd,
+            localAmountText: formatSelectedCountryPrice(pkgUsd),
             country: info.country,
             region: info.region,
             currencyCode: info.code,
@@ -1161,9 +1408,15 @@
 
         var txId = document.getElementById("orderTxIdInput").value.trim();
         var sender = document.getElementById("orderSenderInput").value.trim();
+        var spec = PAYMENT_INPUT_SPECS[selectedPayMethod];
         if (!txId) {
           btn.disabled = false;
-          showToast("Please enter Transaction ID!");
+          showToast("Please enter " + (spec ? spec.txLabel : "Transaction ID") + "!");
+          return;
+        }
+        if (!sender) {
+          btn.disabled = false;
+          showToast("Please enter " + (spec ? spec.senderLabel : "Sender details") + "!");
           return;
         }
 
@@ -1173,11 +1426,12 @@
           name: currentUser.name,
           email: currentUser.email,
           boxId: pkg.id,
+          boxName: pkg.name,
           baseTokens: pkg.base,
           bonusTokens: pkg.bonus,
           totalTokens: exactTotalTokens,
-          usdAmount: pkg.usd,
-          localAmountText: formatSelectedCountryPrice(pkg.usd),
+          usdAmount: pkgUsd,
+          localAmountText: formatSelectedCountryPrice(pkgUsd),
           country: info.country,
           region: info.region,
           currencyCode: info.code,
@@ -1212,6 +1466,7 @@
                 name: { stringValue: orderObj.name },
                 email: { stringValue: orderObj.email },
                 boxId: { integerValue: String(orderObj.boxId) },
+                boxName: { stringValue: orderObj.boxName || ("Box #" + orderObj.boxId) },
                 baseTokens: { integerValue: String(orderObj.baseTokens) },
                 bonusTokens: { integerValue: String(orderObj.bonusTokens) },
                 totalTokens: { integerValue: String(orderObj.totalTokens) },
@@ -1316,12 +1571,15 @@
             var data = await res.json();
             var cloudOrders = (data && Array.isArray(data.documents)) ? data.documents.map(function (doc) {
               var f = doc.fields || {};
+              var bId = Number((f.boxId && f.boxId.integerValue) || 1);
+              var matchedPkg = TOKEN_PACKAGES.find(function (p) { return p.id === bId; });
               return {
                 id: (f.orderId && f.orderId.stringValue) || (doc.name || "").split("/").pop(),
                 uid: (f.uid && f.uid.stringValue) || "",
                 name: (f.name && f.name.stringValue) || "",
                 email: (f.email && f.email.stringValue) || "",
-                boxId: Number((f.boxId && f.boxId.integerValue) || 1),
+                boxId: bId,
+                boxName: (f.boxName && f.boxName.stringValue) || (matchedPkg ? matchedPkg.name : ""),
                 baseTokens: Number((f.baseTokens && f.baseTokens.integerValue) || 0),
                 bonusTokens: Number((f.bonusTokens && f.bonusTokens.integerValue) || 0),
                 totalTokens: Number((f.totalTokens && f.totalTokens.integerValue) || 0),
@@ -1412,9 +1670,12 @@
         el.innerHTML = myOrders.map(function (o) {
           var stClass = o.status === "approved" ? "approved" : (o.status === "rejected" ? "rejected" : "");
           var stText = o.status === "approved" ? "Approved" : (o.status === "rejected" ? "Rejected" : "Pending Verification");
+          var pkgInfo = TOKEN_PACKAGES.find(function (p) { return p.id === o.boxId; });
+          var bName = o.boxName || (pkgInfo ? pkgInfo.name : "");
+          var boxLabel = "Box #" + o.boxId + (bName ? " (" + escapeHtml(bName) + ")" : "");
           return '<div class="history-card">' +
             '<div class="history-head">' +
-              '<span class="pkg-num">Box #' + o.boxId + ' • ' + escapeHtml(o.paymentMethod) + '</span>' +
+              '<span class="pkg-num">' + boxLabel + ' • ' + escapeHtml(o.paymentMethod) + '</span>' +
               '<span class="status-pill ' + stClass + '">' + stText + '</span>' +
             '</div>' +
             '<div style="font-size:15px; font-weight:800; margin-bottom:4px;">+' + formatNum(o.totalTokens) + ' Tokens <span style="font-size:12px; color:var(--text-muted); font-weight:600;">(' + formatNum(o.baseTokens) + ' + ' + formatNum(o.bonusTokens) + ' Bonus)</span></div>' +
@@ -1568,7 +1829,7 @@
       }
 
       function switchSection(name) {
-        ["buy", "history", "account"].forEach(function (s) {
+        ["buy", "history", "guide", "account"].forEach(function (s) {
           document.getElementById("sec-" + s).classList.toggle("active", s === name);
           document.getElementById("tabBtn" + s.charAt(0).toUpperCase() + s.slice(1)).classList.toggle("active", s === name);
         });
