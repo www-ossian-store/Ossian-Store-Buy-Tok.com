@@ -143,7 +143,7 @@
     .tab-section.active { display: block; animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 20 Token Buy Boxes Grid */
+    /* 20 Token Buy Packages Grid */
     .packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     @media (min-width: 680px) { .packages-grid { grid-template-columns: repeat(4, 1fr); } }
     .pkg-card {
@@ -152,7 +152,7 @@
       box-shadow: var(--shadow); cursor: pointer; transition: transform 0.15s, border-color 0.2s;
     }
     .pkg-card:hover { border-color: #f59e0b; transform: translateY(-2px); }
-    .pkg-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
+    .pkg-top-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
     .pkg-num {
       font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 99px;
       background: var(--gold-bg); border: 1px solid var(--gold-border); color: var(--primary);
@@ -160,8 +160,9 @@
     .pkg-bonus-badge {
       font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 99px;
       background: rgba(16, 185, 129, 0.14); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);
+      margin-left: auto;
     }
-    .pkg-name { font-size: 13px; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
+    .pkg-name { font-size: 13.5px; font-weight: 800; color: var(--primary); line-height: 1.25; }
     .pkg-total-tok { font-size: 18.5px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
     .pkg-breakdown { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
     .pkg-price-box {
@@ -270,10 +271,10 @@
     }
     .err-box.show { display: block; }
 
-    /* Easypaisa QR Card matching Photo */
-    .ep-qr-card {
-      background: #ffffff; color: #0f172a; border-radius: 18px; padding: 18px 14px;
-      text-align: center; border: 1px solid #e2e8f0; max-width: 310px; margin: 10px auto 0;
+    /* Easypaisa QR Card & TRC-20 QR Photo Card */
+    .ep-qr-card, .trc-qr-card {
+      background: #ffffff; color: #0f172a; border-radius: 18px; padding: 16px 14px;
+      text-align: center; border: 1px solid #e2e8f0; max-width: 310px; margin: 12px auto 0;
     }
     .ep-logo-text { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: #1e293b; margin-bottom: 6px; }
     .ep-logo-text span { color: #00a859; }
@@ -283,6 +284,19 @@
       border: 1px solid #e2e8f0; margin-bottom: 10px;
     }
     .ep-qr-frame img, .ep-qr-frame canvas { width: 190px; height: 190px; display: block; object-fit: contain; }
+    .trc-qr-frame {
+      display: inline-flex; padding: 6px; background: #ffffff; border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .trc-qr-frame img, .trc-qr-frame canvas { width: 204px; height: 204px; display: block; object-fit: contain; }
+    .trc-network-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 4px; text-align: left;
+    }
+    .trc-net-label { font-size: 13.5px; color: #64748b; font-weight: 600; }
+    .trc-net-val { text-align: right; }
+    .trc-net-val strong { display: block; font-size: 14.5px; font-weight: 800; color: #0f172a; }
+    .trc-net-val span { font-size: 12.5px; color: #64748b; font-weight: 600; }
     .ep-acc-name { font-size: 16px; font-weight: 900; color: #0f172a; letter-spacing: 0.4px; }
     .ep-acc-msisdn { font-size: 12.5px; color: #475569; font-weight: 700; margin-top: 3px; }
 
@@ -411,7 +425,7 @@
         </button>
       </div>
 
-      <!-- 1. 20 TOKEN BUY BOXES -->
+      <!-- 1. 20 TOKEN BUY PACKAGES -->
       <section id="sec-buy" class="tab-section active">
         <div id="packagesGrid" class="packages-grid"></div>
       </section>
@@ -454,7 +468,7 @@
             </div>
             <div class="guide-sub-label">How to Transfer:</div>
             <ol class="guide-steps">
-              <li>Sign in to your OSSIAN PRO account and open any of the 20 Token Boxes.</li>
+              <li>Sign in to your OSSIAN PRO account and select any of the 20 Token Packages.</li>
               <li>Select <strong>1. Pay with Account Balance</strong> in the checkout popup.</li>
               <li>Verify your current USD Balance covers the package cost, then tap <strong>Pay Instantly from Account Balance</strong>.</li>
               <li>No Transaction ID or manual form is required — tokens are credited immediately.</li>
@@ -495,15 +509,21 @@
           <div class="guide-card">
             <div class="guide-head">
               <div class="guide-title"><i class="fa-solid fa-coins gold-icon"></i> 3. TRC-20 USDT Transfer</div>
-              <span class="guide-badge">TRON Network Only</span>
+              <span class="guide-badge">TRX / Tron (TRC20)</span>
             </div>
             <div class="guide-sub-label">How to Transfer:</div>
             <ol class="guide-steps">
-              <li>Select <strong>3. TRC-20 USDT Pay</strong> and copy the wallet address (<code>TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</code>) or scan the QR code.</li>
-              <li>Open your exchange/crypto wallet &rarr; Withdraw/Send <strong>USDT</strong> &rarr; Select network <strong>TRON (TRC-20)</strong>.</li>
+              <li>Select <strong>3. TRC-20 USDT Pay</strong> and copy the wallet address (<code>TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</code>) or scan the QR photo.</li>
+              <li>Open your exchange/crypto wallet &rarr; Withdraw/Send <strong>USDT</strong> &rarr; Select network <strong>TRX — Tron (TRC20)</strong>.</li>
               <li>Send the exact USDT amount (make sure network withdrawal fees are covered separately).</li>
               <li>In checkout, paste <strong>only</strong> the <strong>TRC-20 Transaction Hash (TxID)</strong> and your <strong>Sender TRC-20 Wallet Address</strong>.</li>
             </ol>
+            <div class="addr-copy-row" style="margin-top:8px;">
+              <span class="addr-text">TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ</span>
+              <button type="button" class="btn btn-primary btn-sm" onclick="copyText('TNwrcP6BupVeouPAVwkhg19fqY4TSzr2KQ', 'TRC-20 address copied!')">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
             <div class="guide-rules-box">
               <div class="guide-sub-label">Rules:</div>
               <ul class="guide-rules">
@@ -525,7 +545,7 @@
               <li>Select <strong>4. Easypaisa IBAN Pay</strong> and copy the IBAN: <code>PK36TMFB0000000050698679</code>.</li>
               <li>Open Easypaisa, JazzCash, SadaPay, NayaPay, or any Bank App &rarr; Select <strong>Bank / IBAN Transfer</strong>.</li>
               <li>Choose <strong>Telenor Microfinance Bank / Easypaisa</strong>, paste the IBAN, and confirm the account title is <strong>MUHAMMAD ASLAM</strong>.</li>
-              <li>Send the exact PKR price displayed on your selected box, then paste your <strong>Easypaisa/Bank TID</strong> and <strong>Sender Account Title &amp; Number</strong>.</li>
+              <li>Send the exact PKR price displayed on your selected package, then paste your <strong>Easypaisa/Bank TID</strong> and <strong>Sender Account Title &amp; Number</strong>.</li>
             </ol>
             <div class="guide-rules-box">
               <div class="guide-sub-label">Rules:</div>
@@ -587,7 +607,7 @@
       <div class="sheet-handle"></div>
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:10px;">
         <div>
-          <h3 id="modalPkgTitle" style="font-size:18px; font-weight:800;">Box #1: Starter Spark — 2,750 Tokens</h3>
+          <h3 id="modalPkgTitle" style="font-size:18px; font-weight:800;">Starter Spark — 2,750 Tokens</h3>
           <div id="modalPkgBreakdown" style="font-size:12px; color:var(--text-muted);">2,500 Base + 250 Extra Bonus Tokens</div>
         </div>
         <div style="text-align:right;">
@@ -702,6 +722,7 @@
 
       let adminBinanceUid = "";
       let adminEasypaisaQrUrl = "";
+      let adminTrc20QrUrl = "";
       let currentUser = null;
       let ordersList = [];
       let creditedOrderIds = {};
@@ -713,7 +734,7 @@
 
       let savedRegionState = { saved: false, region: "", country: "", savedAt: 0 };
 
-      /* 20 Boxes with distinct names and price right after bonus */
+      /* 20 Token Packages with distinct names and price right after bonus */
       const TOKEN_PACKAGES = [
         { id: 1,  name: "Starter Spark",    base: 2500,   bonus: 250,     price: 2,   usd: 2 },
         { id: 2,  name: "Copper Boost",     base: 5000,   bonus: 950,     price: 4,   usd: 4 },
@@ -1090,7 +1111,7 @@
       }
 
       /* =======================================================
-         20 TOKEN BUY BOXES RENDERING
+         20 TOKEN BUY PACKAGES RENDERING (NO Box #1..#20 LABELS)
          ======================================================= */
       function renderPackagesGrid() {
         var grid = document.getElementById("packagesGrid");
@@ -1107,10 +1128,9 @@
           return '<div class="pkg-card" onclick="openCheckoutModal(' + idx + ')">' +
             '<div>' +
               '<div class="pkg-top-row">' +
-                '<span class="pkg-num">Box #' + pkg.id + '</span>' +
+                '<div class="pkg-name">' + escapeHtml(pkg.name) + '</div>' +
                 '<span class="pkg-bonus-badge">+' + pct + '% Extra</span>' +
               '</div>' +
-              '<div class="pkg-name">' + escapeHtml(pkg.name) + '</div>' +
               '<div class="pkg-total-tok">' + formatNum(total) + ' TOK</div>' +
               '<div class="pkg-breakdown">' +
                 'Base: <strong>' + formatNum(pkg.base) + '</strong><br>' +
@@ -1166,31 +1186,72 @@
         var pkg = TOKEN_PACKAGES[selectedPkgIndex] || TOKEN_PACKAGES[0];
         var total = pkg.base + pkg.bonus;
         var pkgUsd = getPkgPriceUsd(pkg);
-        document.getElementById("modalPkgTitle").textContent = "Box #" + pkg.id + ": " + pkg.name + " — " + formatNum(total) + " Tokens";
+        document.getElementById("modalPkgTitle").textContent = pkg.name + " — " + formatNum(total) + " Tokens";
         document.getElementById("modalPkgBreakdown").textContent = formatNum(pkg.base) + " Base + " + formatNum(pkg.bonus) + " Bonus Tokens";
         document.getElementById("modalLocalPrice").textContent = formatSelectedCountryPrice(pkgUsd);
         document.getElementById("modalAccountTag").textContent = "UID: " + (currentUser ? currentUser.uid : "-");
         selectPayMethod(selectedPayMethod);
       }
 
-      function drawQrIntoCanvas(canvasId, textData) {
+      function drawQrIntoCanvas(canvasId, textData, withTetherCenter) {
         var canvas = document.getElementById(canvasId);
         if (!canvas || typeof window.qrcode !== "function") return;
-        var qr = window.qrcode(0, "M");
+        var qr = window.qrcode(0, withTetherCenter ? "H" : "M");
         qr.addData(textData);
         qr.make();
-        var count = qr.getModuleCount(), size = 190, margin = 8;
+        var count = qr.getModuleCount(), size = 204, margin = 8;
         canvas.width = size; canvas.height = size;
         var ctx = canvas.getContext("2d");
         ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
         var cell = (size - margin * 2) / count;
-        ctx.fillStyle = "#0f172a";
+        ctx.fillStyle = "#000000";
         for (var r = 0; r < count; r++) {
           for (var c = 0; c < count; c++) {
             if (qr.isDark(r, c)) {
               ctx.fillRect(Math.floor(margin + c * cell), Math.floor(margin + r * cell), Math.ceil(cell), Math.ceil(cell));
             }
           }
+        }
+
+        if (withTetherCenter) {
+          var cx = size / 2;
+          var cy = size / 2;
+
+          /* White circular cushion around Tether badge */
+          ctx.beginPath();
+          ctx.arc(cx, cy, 22, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+
+          /* Teal Tether Shield / Diamond Badge matching uploaded QR photo */
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(cx - 10, cy - 13);
+          ctx.lineTo(cx + 10, cy - 13);
+          ctx.quadraticCurveTo(cx + 13, cy - 13, cx + 15, cy - 8);
+          ctx.lineTo(cx + 17, cy - 1);
+          ctx.quadraticCurveTo(cx + 18, cy + 3, cx + 14, cy + 7);
+          ctx.lineTo(cx + 2, cy + 16);
+          ctx.quadraticCurveTo(cx, cy + 17.5, cx - 2, cy + 16);
+          ctx.lineTo(cx - 14, cy + 7);
+          ctx.quadraticCurveTo(cx - 18, cy + 3, cx - 17, cy - 1);
+          ctx.lineTo(cx - 15, cy - 8);
+          ctx.quadraticCurveTo(cx - 13, cy - 13, cx - 10, cy - 13);
+          ctx.closePath();
+          ctx.fillStyle = "#009393";
+          ctx.fill();
+
+          /* White Tether (₮) symbol inside badge */
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(cx - 8, cy - 8.5, 16, 2.8);
+          ctx.fillRect(cx - 1.5, cy - 7, 3, 16);
+
+          ctx.beginPath();
+          ctx.ellipse(cx, cy - 0.5, 10, 3.2, 0, 0, Math.PI * 2);
+          ctx.lineWidth = 2.1;
+          ctx.strokeStyle = "#ffffff";
+          ctx.stroke();
+          ctx.restore();
         }
       }
 
@@ -1259,17 +1320,30 @@
               (adminBinanceUid ? '<button type="button" class="btn btn-primary btn-sm" onclick="copyText(\'' + escapeHtml(adminBinanceUid) + '\', \'Binance UID copied!\')"><i class="fa-solid fa-copy"></i> Copy</button>' : '') +
             '</div>';
         } else if (selectedPayMethod === "trc20") {
+          var trcQrHtml = adminTrc20QrUrl
+            ? '<img src="' + escapeHtml(adminTrc20QrUrl) + '" alt="TRC-20 QR" onerror="window.renderFallbackTrc20Qr()" />'
+            : '<canvas id="trc20QrCanvas" width="204" height="204"></canvas>';
+
           box.innerHTML =
             '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-coins gold-icon"></i> TRC-20 USDT Deposit Address</div>' +
-            '<p style="font-size:12px; color:#ef4444; font-weight:700; margin-bottom:6px;">Network: TRON (TRC-20) Only — Amount: ' + escapeHtml(localAmt) + '</p>' +
+            '<p style="font-size:12px; color:#ef4444; font-weight:700; margin-bottom:6px;">Network: TRX — Tron (TRC20) Only — Amount: ' + escapeHtml(localAmt) + '</p>' +
             '<div class="addr-copy-row">' +
               '<span class="addr-text">' + TRC20_ADDRESS + '</span>' +
               '<button type="button" class="btn btn-primary btn-sm" onclick="copyText(\'' + TRC20_ADDRESS + '\', \'TRC-20 address copied!\')"><i class="fa-solid fa-copy"></i> Copy</button>' +
             '</div>' +
-            '<div style="text-align:center; margin-top:10px;">' +
-              '<div class="ep-qr-frame"><canvas id="trc20QrCanvas" width="190" height="190"></canvas></div>' +
+            '<div class="trc-qr-card">' +
+              '<div class="trc-qr-frame" id="trcQrContainer">' + trcQrHtml + '</div>' +
+              '<div class="trc-network-row">' +
+                '<span class="trc-net-label">Network</span>' +
+                '<div class="trc-net-val">' +
+                  '<strong>TRX</strong>' +
+                  '<span>Tron (TRC20)</span>' +
+                '</div>' +
+              '</div>' +
             '</div>';
-          drawQrIntoCanvas("trc20QrCanvas", TRC20_ADDRESS);
+          if (!adminTrc20QrUrl) {
+            drawQrIntoCanvas("trc20QrCanvas", TRC20_ADDRESS, true);
+          }
         } else if (selectedPayMethod === "ep_iban") {
           box.innerHTML =
             '<div style="font-size:13px; font-weight:800; margin-bottom:6px;"><i class="fa-solid fa-building-columns gold-icon"></i> Easypaisa IBAN Pay</div>' +
@@ -1296,11 +1370,18 @@
         }
       }
 
+      window.renderFallbackTrc20Qr = function () {
+        var el = document.getElementById("trcQrContainer");
+        if (!el) return;
+        el.innerHTML = '<canvas id="trc20QrFallbackCanvas" width="204" height="204"></canvas>';
+        drawQrIntoCanvas("trc20QrFallbackCanvas", TRC20_ADDRESS, true);
+      };
+
       window.renderFallbackEasypaisaQr = function () {
         var el = document.getElementById("epQrContainer");
         if (!el) return;
         el.innerHTML = '<canvas id="epFallbackCanvas" width="190" height="190"></canvas>';
-        drawQrIntoCanvas("epFallbackCanvas", EASYPAISA_IBAN);
+        drawQrIntoCanvas("epFallbackCanvas", EASYPAISA_IBAN, false);
       };
 
       function getMethodLabel(pm) {
@@ -1466,7 +1547,7 @@
                 name: { stringValue: orderObj.name },
                 email: { stringValue: orderObj.email },
                 boxId: { integerValue: String(orderObj.boxId) },
-                boxName: { stringValue: orderObj.boxName || ("Box #" + orderObj.boxId) },
+                boxName: { stringValue: orderObj.boxName || "Token Package" },
                 baseTokens: { integerValue: String(orderObj.baseTokens) },
                 bonusTokens: { integerValue: String(orderObj.bonusTokens) },
                 totalTokens: { integerValue: String(orderObj.totalTokens) },
@@ -1557,6 +1638,8 @@
               if (bUid && bUid.stringValue) adminBinanceUid = bUid.stringValue.trim();
               var epQr = f.easypaisaQrUrl || f.easypaisaQr;
               if (epQr && epQr.stringValue) adminEasypaisaQrUrl = epQr.stringValue.trim();
+              var trcQr = f.trc20QrUrl || f.trc20Qr;
+              if (trcQr && trcQr.stringValue) adminTrc20QrUrl = trcQr.stringValue.trim();
             });
           } catch (e) {}
         }
@@ -1671,11 +1754,10 @@
           var stClass = o.status === "approved" ? "approved" : (o.status === "rejected" ? "rejected" : "");
           var stText = o.status === "approved" ? "Approved" : (o.status === "rejected" ? "Rejected" : "Pending Verification");
           var pkgInfo = TOKEN_PACKAGES.find(function (p) { return p.id === o.boxId; });
-          var bName = o.boxName || (pkgInfo ? pkgInfo.name : "");
-          var boxLabel = "Box #" + o.boxId + (bName ? " (" + escapeHtml(bName) + ")" : "");
+          var bName = o.boxName || (pkgInfo ? pkgInfo.name : "Token Package");
           return '<div class="history-card">' +
             '<div class="history-head">' +
-              '<span class="pkg-num">' + boxLabel + ' • ' + escapeHtml(o.paymentMethod) + '</span>' +
+              '<span class="pkg-num">' + escapeHtml(bName) + ' • ' + escapeHtml(o.paymentMethod) + '</span>' +
               '<span class="status-pill ' + stClass + '">' + stText + '</span>' +
             '</div>' +
             '<div style="font-size:15px; font-weight:800; margin-bottom:4px;">+' + formatNum(o.totalTokens) + ' Tokens <span style="font-size:12px; color:var(--text-muted); font-weight:600;">(' + formatNum(o.baseTokens) + ' + ' + formatNum(o.bonusTokens) + ' Bonus)</span></div>' +
